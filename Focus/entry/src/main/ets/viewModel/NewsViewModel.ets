@@ -1,0 +1,70 @@
+import axios, { AxiosError, AxiosResponse } from '@ohos/axios';
+import { NewsInfoItem } from '../bean/NewsInfo'
+import { BLog } from '../utils/BLog';
+import { NewsBuilding } from '../model/NewsInfoModel'
+export class NewsDataSource implements IDataSource {
+  private list: Array<NewsInfoItem> = [];
+  private listener: DataChangeListener;
+
+  constructor(list?: NewsInfoItem[]) {
+    this.list = list;
+  }
+
+  totalCount(): number {
+    return this.list.length;
+  }
+
+  getData(index: number) {
+    return this.list[index];
+  }
+
+  setData(list: NewsInfoItem[]) {
+    this.list = [...list];
+  }
+
+  registerDataChangeListener(listener: DataChangeListener): void {
+    this.listener = listener;
+  }
+
+  unregisterDataChangeListener(listener: DataChangeListener): void {
+
+  }
+
+}
+
+
+export default class NewsViewModel {
+  public newsDataSource:NewsDataSource = new NewsDataSource();
+
+  public setCityDataSource(newsInfo: NewsInfoItem[]) {
+    this.newsDataSource.setData(newsInfo);
+  }
+
+  public getCityDataSource(): NewsDataSource {
+    return this.newsDataSource;
+  }
+
+  public async getNewsData(): Promise<NewsBuilding.NewsBuildingData> {
+    const url = 'https://graphql.focus.cn/alias/query'
+    let data: NewsBuilding.NewsBuildingData;
+
+    await axios.get<string, AxiosResponse<string>, null>(url, { params: {
+      "name":'/home/feed/household',
+      "graphProjectId":11,
+      "param": "cityId=1&category=2&pageNo=1&pageSize=20"} })
+      .then((res: AxiosResponse) => {
+        if (res.status == 200 ) {
+          try {
+            BLog.i(`get weather info hourly, response: ${JSON.stringify(res)}`)
+            data = JSON.parse(JSON.stringify(res.data))
+          }catch (error){
+            BLog.e('首页列表数据：网络请求成功但是数据解析格式错误'+ error)
+          }
+        }
+      })
+      .catch((error: AxiosError) => {
+        console.error("error--首页列表数据" + error.message);
+      });
+    return data;
+  }
+}
