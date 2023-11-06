@@ -20,7 +20,7 @@ export struct HomeView {
     this.buildListDataS['build'] = await viewModel.getNewsData();
     for (let i = 0; i < this.buildListDataS['build'].data.homeNewsList.newsListData.list.length ; i++) {
       this.dataSource.push(new NewsInfoItem({ title: this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].title,
-        content: 'string', headImg:'string'
+        content: 'string', headImg:'string',nickNameDisplay:this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].userInfo.nickNameDisplay
       }))
     }
     BLog.i('zm')
@@ -36,7 +36,9 @@ export struct HomeView {
                 Text('' +item.title)
                   .width('100%').height(50).fontSize(22)
                   .textAlign(TextAlign.Start).backgroundColor(0xFFFFFF)
-
+                Text('' +item.userInfo.nickNameDisplay)
+                  .width('100%').height(50).fontSize(19)
+                  .textAlign(TextAlign.Start).backgroundColor(0xFFFFFF)
               }.height(100).backgroundColor(Color.Grey).borderRadius(20)
             }.borderRadius(20)
           }, item => item)

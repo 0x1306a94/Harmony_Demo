@@ -38,12 +38,12 @@ export class  NewsInfoItem {
   baiduOriginCode: string | null;
   pincePid: string | null;
 
-  constructor(options:{title: string, content: string, headImg:string }) {
+  constructor(options:{title: string, content: string, headImg:string, nickNameDisplay:string }) {
     this.title = options.title
     this.content = options.content
     this.headImg = options.headImg
     // 初始化 UserInfo 对象
-    // this.userInfo = new UserInfo({ nickNameDisplay: options.nickNameDisplay });
+    this.userInfo = new UserInfo({ nickNameDisplay: options.nickNameDisplay });
 
   }
 }

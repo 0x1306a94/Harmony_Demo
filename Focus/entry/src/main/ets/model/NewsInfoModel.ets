@@ -45,6 +45,7 @@ interface BuildingInfo {
   desId: string;
   status: number;
   url: string | null;
+  userInfo: UserInfo;
   sign: string | null;
   title: string;
   headImg: string;
@@ -66,4 +67,26 @@ interface BuildingInfo {
   baiduOriginCode: string | null;
   pincePid: string | null;
 
+}
+
+interface UserInfo {
+  uid: number;
+  nickName: string | null;
+  avatar: string;
+  mobile: string | null;
+  status: number;
+  bindEmail: string | null;
+  introduce: string | null;
+  accreditStatus: string | null;
+  accreditRoleType: string | null;
+  bindPhone: string | null;
+  openid: string | null;
+  openidType: string | null;
+  bindUserList: string[] | null;
+  profileUrl: string;
+  accreditRoleName: string | null;
+  nickNameDisplay: string;
+  photoUrlDisplay: string;
+  produceType: string | null;
+  cityName: string | null;
 }
