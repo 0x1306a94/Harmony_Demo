@@ -1,19 +1,20 @@
-import HomeBannerView from '../component/HomeBannerView'
-@Entry
+@Styles function allSize() {
+  .width('100%')
+  .height('100%')
+}
+
 @Component
-export struct MeView {
-  @State message: string = 'Hello MyView'
+export default struct HomeBannerView {
 
   build() {
-
     Row() {
       Column() {
-        Text(this.message)
+        Text('HomeBannerView')
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
       }
       .width('100%')
-    }
+    }.backgroundColor(Color.Red)
     .height('100%')
   }
 }

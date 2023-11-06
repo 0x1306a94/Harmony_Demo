@@ -1,11 +1,10 @@
 @Entry
 @Component
 export struct LivingView {
-  @State message: string = 'Hello LivingView'
+  @State message: string = 'Hello MyView'
 
-  async aboutToAppear(){
-  }
   build() {
+
     Row() {
       Column() {
         Text(this.message)
