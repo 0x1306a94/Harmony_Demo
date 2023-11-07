@@ -2,13 +2,15 @@ import {WaterFallLayout} from '../component/waterfalllayout'
 import {TabLayout} from '../component/horizontalTabs'
 import {SearchBar} from '../component/searchBar'
 import {MenuLayout} from '../component/header'
+import { TableView } from '../component/tabView'
+import { NewsInfoItem } from '../bean/NewsInfo'
 
 
 @Entry
 @Component
 export struct ChatView {
-  @State titleArr: string[] = ['关注', '附近', '达人探店', '优惠', '家居生活', '美食', '遛娃', '医美', '宠物', '运动健康', '教培']
-  @State currentIndex: number  = 1
+  @State titleArr: string[] = ['新房', '咨询', '家居']
+  @State currentIndex: number  = 0
   private swiperController: SwiperController = new SwiperController()
   // 头部banner高度
   @State @Watch("onHeaderHeightUpdated") headerHeight: number = 160
@@ -18,6 +20,9 @@ export struct ChatView {
   @State searchBarHeight: number = 50
   private scrollY: number = 0
   @State tabPosY: number = vp2px(this.headerHeight + this.searchBarHeight)
+
+
+  @Provide dataSource: Array<NewsInfoItem> = [];
 
   build() {
     Stack({ alignContent: Alignment.Top }) {
@@ -47,7 +52,9 @@ export struct ChatView {
             ForEach(this.titleArr, (item) => {
               Column() {
                 Text('Page ' + item).fontSize(25).margin(10)
-                WaterFallLayout()
+                // WaterFallLayout()
+
+                TableView()
               }
             }, item => item)
           }

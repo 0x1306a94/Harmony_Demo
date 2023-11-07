@@ -1,6 +1,6 @@
 import { NewsInfoItem } from '../bean/NewsInfo'
 
-
+//TODO: 这里不需要用column包装，不然和首页无法滚动联动
 @Component
 export struct TableView {
   @State message: string = 'Hello HomeView'
