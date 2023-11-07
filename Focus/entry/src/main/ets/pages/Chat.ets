@@ -13,7 +13,7 @@ export struct ChatView {
   @State currentIndex: number  = 0
   private swiperController: SwiperController = new SwiperController()
   // 头部banner高度
-  @State @Watch("onHeaderHeightUpdated") headerHeight: number = 180
+  @State  headerHeight: number = 180
   // tab标签栏的高度
   private tabHeight = 50
   // 搜索栏高度
@@ -25,7 +25,7 @@ export struct ChatView {
   @Provide dataSource: Array<NewsInfoItem> = [];
 
   @State tempDataSource: Array<string> = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
-
+  scroller: Scroller = new Scroller()
   build() {
     Stack({ alignContent: Alignment.Top }) {
       SearchBar({ searchBarHeight: this.searchBarHeight })
@@ -46,9 +46,9 @@ export struct ChatView {
       .position({ y: this.tabPosY + 'px', x: 0 })
       .zIndex(10)
 
-      Scroll() {
+      Scroll(this.scroller) {
         Column() {
-          MenuLayout({ headerHeight: $headerHeight })
+          MenuLayout()
 
           Swiper(this.swiperController) {
             ForEach(this.titleArr, (item) => {
@@ -97,16 +97,13 @@ export struct ChatView {
       .margin({ top: this.searchBarHeight })
       .backgroundColor('#F4F4F4')
       .onScroll((xOffset: number, yOffset: number) => {
-        this.scrollY += yOffset
-        this.tabPosY = vp2px(this.headerHeight) - this.scrollY <= 0
-          ? vp2px(this.searchBarHeight) : vp2px(this.headerHeight + this.searchBarHeight) - this.scrollY
+        this.scrollY += this.scroller.currentOffset().yOffset
+        this.tabPosY = vp2px(this.scroller.currentOffset().yOffset)  <  vp2px(this.headerHeight + this.searchBarHeight)?
+          vp2px(this.headerHeight + this.searchBarHeight - this.scroller.currentOffset().yOffset): vp2px(this.searchBarHeight)
       })
 
 
     }.width('100%')
   }
 
-  onHeaderHeightUpdated() {
-    this.tabPosY = vp2px(this.headerHeight + this.searchBarHeight)
-  }
 }

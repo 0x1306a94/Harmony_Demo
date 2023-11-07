@@ -13,9 +13,10 @@ export struct MenuLayout {
   private slidPercent: number = 0
   private scroller: Scroller = new Scroller()
   // 容器的高度
-  @Link headerHeight: number
+  // @Link headerHeight: number
+  private headerHeight: number = 180
   // 容器的高度因为headerHeight在滑动时会不断变化，所以放在aboutToAppear中初始化
-  private pageHeight: number
+  private pageHeight: number = 180
   // 上次手指按下的位置
   private lastX: number;
 
@@ -24,9 +25,9 @@ export struct MenuLayout {
     console.log('onSlidChange slidPercent = ' + slidPercent)
   }
 
-  aboutToAppear() {
-    this.pageHeight = this.headerHeight
-  }
+  // aboutToAppear() {
+  //   this.pageHeight = this.headerHeight
+  // }
 
   @Builder genMenuLayout(menuList: MenuData[]) {
     Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
@@ -48,7 +49,7 @@ export struct MenuLayout {
   build() {
     Flex({ direction: FlexDirection.Row, wrap: FlexWrap.NoWrap }) {
       this.genMenuLayout(this.firstMenuList)
-    }.height('100%')
+    }.height(this.pageHeight)
     // Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center }) {
     //   Scroll(this.scroller) {
     //     Flex({ direction: FlexDirection.Row, wrap: FlexWrap.NoWrap }) {
