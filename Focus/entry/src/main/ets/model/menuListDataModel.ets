@@ -7,32 +7,32 @@ export class MenuData {
 
 export function getFirstMenuList(): Array<MenuData> {
   let imageDataArray: Array<MenuData> = [
-    { "id": "0", "src": $r('app.media.icon'), "name": '美食' },
-    { "id": "1", "src": $r('app.media.icon'), "name": '景点/周边游' },
-    { "id": "2", "src": $r("app.media.icon"), "name": '酒店/民宿' },
-    { "id": "3", "src": $r("app.media.icon"), "name": '休闲/玩乐' },
-    { "id": "4", "src": $r("app.media.icon"), "name": '电影/演出' },
-    { "id": "5", "src": $r("app.media.icon"), "name": '医疗/口腔' },
-    { "id": "6", "src": $r('app.media.icon'), "name": '理发/男士' },
-    { "id": "7", "src": $r('app.media.icon'), "name": '亲子/乐园' },
-    { "id": "8", "src": $r('app.media.icon'), "name": '结婚/摄影' },
-    { "id": "9", "src": $r('app.media.icon'), "name": '学习/培训' },
+    { "id": "0", "src": $r('app.media.icon'), "name": '新房' },
+    { "id": "1", "src": $r('app.media.icon'), "name": '家居装修' },
+    { "id": "2", "src": $r("app.media.icon"), "name": '文旅' },
+    { "id": "3", "src": $r("app.media.icon"), "name": '海外' },
+    { "id": "4", "src": $r("app.media.icon"), "name": '财经' },
+    { "id": "5", "src": $r("app.media.icon"), "name": '咨询' },
+    { "id": "6", "src": $r('app.media.icon'), "name": '地图找房' },
+    { "id": "7", "src": $r('app.media.icon'), "name": '算房贷' },
+    { "id": "8", "src": $r('app.media.icon'), "name": '万科品牌馆' },
+    { "id": "9", "src": $r('app.media.icon'), "name": '智慧案场' },
   ]
   return imageDataArray
 }
 
 export function getSecondMenuList(): Array<MenuData> {
   let imageDataArray: Array<MenuData> = [
-    { "id": "0", "src": $r('app.media.icon'), "name": '美食1' },
-    { "id": "1", "src": $r('app.media.icon'), "name": '景点/周边游1' },
-    { "id": "2", "src": $r("app.media.icon"), "name": '酒店/民宿1' },
-    { "id": "3", "src": $r("app.media.icon"), "name": '休闲/玩乐1' },
-    { "id": "4", "src": $r("app.media.icon"), "name": '电影/演出1' },
-    { "id": "5", "src": $r("app.media.icon"), "name": '医疗/口腔1' },
-    { "id": "6", "src": $r('app.media.icon'), "name": '理发/男士1' },
-    { "id": "7", "src": $r('app.media.icon'), "name": '亲子/乐园1' },
-    { "id": "8", "src": $r('app.media.icon'), "name": '结婚/摄影1' },
-    { "id": "9", "src": $r('app.media.icon'), "name": '学习/培训1' },
+    { "id": "0", "src": $r('app.media.icon'), "name": '新房' },
+    { "id": "1", "src": $r('app.media.icon'), "name": '家居装修' },
+    { "id": "2", "src": $r("app.media.icon"), "name": '文旅' },
+    { "id": "3", "src": $r("app.media.icon"), "name": '海外' },
+    { "id": "4", "src": $r("app.media.icon"), "name": '财经' },
+    { "id": "5", "src": $r("app.media.icon"), "name": '咨询' },
+    { "id": "6", "src": $r('app.media.icon'), "name": '地图找房' },
+    { "id": "7", "src": $r('app.media.icon'), "name": '算房贷' },
+    { "id": "8", "src": $r('app.media.icon'), "name": '万科品牌馆' },
+    { "id": "9", "src": $r('app.media.icon'), "name": '智慧案场' },
   ]
   return imageDataArray
 }

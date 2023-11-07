@@ -13,7 +13,7 @@ export struct ChatView {
   @State currentIndex: number  = 0
   private swiperController: SwiperController = new SwiperController()
   // 头部banner高度
-  @State @Watch("onHeaderHeightUpdated") headerHeight: number = 160
+  @State @Watch("onHeaderHeightUpdated") headerHeight: number = 180
   // tab标签栏的高度
   private tabHeight = 50
   // 搜索栏高度
