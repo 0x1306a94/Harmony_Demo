@@ -56,22 +56,22 @@ export struct ChatView {
                 Text('Page ' + item).fontSize(25).margin(10)
                 // WaterFallLayout()
 
-                // TableView()
+                TableView()
 
-                List({ space: 0, initialIndex: 0 }) {
-                  ForEach(this.tempDataSource, (item:string,index) => {
-                    ListItem() {
-                      Column(){
-                        Text('这是第几行' +item)
-                          .width('100%').height(50).fontSize(22)
-                          .textAlign(TextAlign.Start).backgroundColor(0xFFFFFF)
-                        Text('这个是空数据的第几行' +item)
-                          .width('100%').height(50).fontSize(19)
-                          .textAlign(TextAlign.Start).backgroundColor(0xFFFFFF)
-                      }.height(100).backgroundColor(Color.Grey).borderRadius(20)
-                    }.borderRadius(20)
-                  }, item => item)
-                }.backgroundColor(Color.Green)
+                // List({ space: 0, initialIndex: 0 }) {
+                //   ForEach(this.tempDataSource, (item:string,index) => {
+                //     ListItem() {
+                //       Column(){
+                //         Text('这是第几行' +item)
+                //           .width('100%').height(50).fontSize(22)
+                //           .textAlign(TextAlign.Start).backgroundColor(0xFFFFFF)
+                //         Text('这个是空数据的第几行' +item)
+                //           .width('100%').height(50).fontSize(19)
+                //           .textAlign(TextAlign.Start).backgroundColor(0xFFFFFF)
+                //       }.height(100).backgroundColor(Color.Grey).borderRadius(20)
+                //     }.borderRadius(20)
+                //   }, item => item)
+                // }.backgroundColor(Color.Green)
               }
             }, item => item)
           }
