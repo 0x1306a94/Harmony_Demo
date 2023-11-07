@@ -1,5 +1,10 @@
 import {getFirstMenuList, getSecondMenuList, MenuData} from '../model/menuListDataModel'
 
+@Styles function allSize() {
+  .width('100%')
+  .height('100%')
+}
+
 @Component
 export struct MenuLayout {
   // 第一页九宫格数据
@@ -41,6 +46,7 @@ export struct MenuLayout {
         })
       }, item => item.id)
     }.width('100%')
+    .backgroundColor(Color.Red)
   }
 
   build() {
@@ -56,7 +62,8 @@ export struct MenuLayout {
       .onScroll((xOffset: number, yOffset: number) => {
         // 计算当前滑动的距离百分比
         this.slidPercent = this.scroller.currentOffset().xOffset / 360
-        this.headerHeight = this.pageHeight + (this.pageHeight - this.indicatorHeight) * this.slidPercent
+        // this.headerHeight = this.pageHeight
+        // this.headerHeight = this.pageHeight + (this.pageHeight - this.indicatorHeight) * this.slidPercent
         if (this.onSlidChange instanceof Function) {
           this.onSlidChange(this.slidPercent)
         }
