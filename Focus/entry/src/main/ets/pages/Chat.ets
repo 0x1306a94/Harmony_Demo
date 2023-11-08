@@ -28,8 +28,12 @@ export struct ChatView {
   scroller: Scroller = new Scroller()
   build() {
     Stack({ alignContent: Alignment.Top }) {
+
+      // 顶部搜索框
       SearchBar({ searchBarHeight: this.searchBarHeight })
+
       Row() {
+        // tab栏
         TabLayout({
           titleArr: $titleArr,
           currentIndex: $currentIndex,
@@ -38,7 +42,7 @@ export struct ChatView {
             console.log('onTabSelected position = ' + position + ', title = ' + title)
             //            this.swiperController.showNext()
           },
-        })
+        }).margin({left:15,right:15})
       }
       .width('100%')
       .height(this.tabHeight)
@@ -48,6 +52,7 @@ export struct ChatView {
 
       Scroll(this.scroller) {
         Column() {
+          // 顶部菜单栏
           MenuLayout()
 
           Swiper(this.swiperController) {
@@ -73,7 +78,7 @@ export struct ChatView {
                 //   }, item => item)
                 // }.backgroundColor(Color.Green)
               }
-            }, item => item)
+            })
           }
           .index(0)
           .autoPlay(false)

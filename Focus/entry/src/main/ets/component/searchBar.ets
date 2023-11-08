@@ -16,8 +16,8 @@ export struct SearchBar {
               .width(15).height(15).margin({left:20})
             Text(item)
               .height('100%')
-              .fontSize(12)
-              .fontColor('#505050')
+              .fontSize(13)
+              .fontColor('#ADADAD')
               .margin({ left: 10 })
           }.width('100%')
 
@@ -26,7 +26,7 @@ export struct SearchBar {
       .layoutWeight(1)
       .height('60%')
       .margin({ left: 15, right: 15 })
-      .backgroundColor('#F1F1F1')
+      .backgroundColor('#F7F7F7')
       .borderRadius(15)
       .vertical(true) // 方向：纵向
       .autoPlay(true) // 自动播放

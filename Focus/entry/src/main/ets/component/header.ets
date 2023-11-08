@@ -35,7 +35,7 @@ export struct MenuLayout {
         Column() {
           Image(item.src).width(40).height(40).objectFit(ImageFit.Cover).borderRadius(20)
           Text(item.name).height(20).fontSize(14).margin({top:10})
-        }.width('20%')
+        }.width('20%').backgroundColor('#F7F7F7')
         .height((this.pageHeight - this.indicatorHeight) / 2)
         .onClick(() => {
           console.log('=======onClick  item.name ===' + item.name)
@@ -43,7 +43,7 @@ export struct MenuLayout {
         .alignItems(HorizontalAlign.Center)
         .justifyContent(FlexAlign.Center)
       }, item => item.id)
-    }.width('100%')
+    }.width('100%').backgroundColor('#F7F7F7')
   }
 
   build() {
