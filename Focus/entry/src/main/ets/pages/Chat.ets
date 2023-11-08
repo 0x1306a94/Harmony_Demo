@@ -87,7 +87,7 @@ export struct ChatView {
           .vertical(false) // 默认横向切换
           .itemSpace(0)
           .index(this.currentIndex)
-          .backgroundColor(Color.Red)
+          .backgroundColor('#F7F7F7')
           .margin({ top: this.tabHeight })
           .flexGrow(1)
           .width('100%')
