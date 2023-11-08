@@ -42,7 +42,7 @@ export struct ChatView {
             console.log('onTabSelected position = ' + position + ', title = ' + title)
             //            this.swiperController.showNext()
           },
-        }).margin({left:15,right:15})
+        }).width('100%').padding({left:15,right:15}).backgroundColor('#F7F7F7')
       }
       .width('100%')
       .height(this.tabHeight)
