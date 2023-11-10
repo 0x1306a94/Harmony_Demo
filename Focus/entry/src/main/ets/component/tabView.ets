@@ -131,33 +131,32 @@ export struct TableView {
           ListItem() {
             Flex({
               direction: FlexDirection.Row,
-              alignItems: ItemAlign.Start,
-              alignContent: FlexAlign.End,
+              alignItems: ItemAlign.Center,
+              alignContent: FlexAlign.Center,
               justifyContent: FlexAlign.SpaceBetween
             }) {
               Column() {
-
-                Text('海底捞回应男海底捞回应男海底捞回应男海底捞回应男')
+                Text('海底捞回底捞回应男捞回应男海底捞')
                   .textOverflow({ overflow: TextOverflow.Clip })
                   .fontColor('#1F1F1F')
                   .fontSize(16)
                   .fontWeight(600)
+                  .maxLines(2)
                   .textOverflow({ overflow: TextOverflow.Ellipsis })
+
                 Row() {
                   Text('搜狐焦点考点')
-                    .fontColor('#BEBEBE').fontSize(12).fontWeight(400)
+                    .fontColor('#BEBEBE').fontSize(12).fontWeight(400).margin({right:20})
                   Text('5小小时前')
                     .fontColor('#BEBEBE').fontSize(12).fontWeight(400)
-                }
-              }
+                }.width('100%').margin({left:10})
+              }.justifyContent(FlexAlign.SpaceBetween).height('80').margin({top:0,bottom:0})
 
               Image("https://p9.itc.cn/q_70,c_lfill,w_688,h_384,g_face/images03/20231108/427f85734b7945ecb5c24405a89eda99.jpeg") // 直接加载网络地址，请填写一个具体的网络图片地址
                 .alt($r('app.media.icon')) // 使用alt，在网络图片加载成功前使用占位图
                 .borderRadius(10)
                 .objectFit(ImageFit.Cover)
-                .width(110)
-                .height(80)
-
+                .width(110).height(80).flexShrink(0)
 
             }
           }
