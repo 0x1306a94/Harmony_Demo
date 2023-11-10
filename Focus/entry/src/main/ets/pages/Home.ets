@@ -1,3 +1,4 @@
+import { ThreadFormatter } from '@ohos/xlog/src/main/ets/components/formatter/ThreadFormatter'
 import { NewsInfoItem } from '../bean/NewsInfo'
 import { TableView } from '../component/tabView'
 import { NewsBuilding } from '../model/NewsInfoModel'
@@ -14,22 +15,29 @@ export struct HomeView {
   @Provide dataSource: Array<NewsInfoItem> =[]
 
   @Provide('buildListDataS') buildListDataS: { [key: string]: NewsBuilding.NewsBuildingData } = {};
+
+
+  @Provide('recommendMenuDatas') recommendMenuDatas: { [key: string]: NewsBuilding.RecommendHeaderData } = {};
   async aboutToAppear(){
     this.title = 'aboutToAppear'
 
     let viewModel = new NewsViewModel();
     this.buildListDataS['build'] = await viewModel.getNewsData();
+    this.recommendMenuDatas['build'] = await viewModel.getBannerHeaderData();
+
     for (let i = 0; i < this.buildListDataS['build'].data.homeNewsList.newsListData.list.length ; i++) {
       this.dataSource.push(new NewsInfoItem({ title: this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].title,
         content: 'string', headImg:'string',nickNameDisplay:this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].userInfo.nickNameDisplay
       }))
     }
+
     BLog.i('zm')
   }
 
   build() {
     Row() {
-      TableView()
+      Text('shouye')
+      // TableView()
     //   Column() {
     //     List({ space: 0, initialIndex: 0 }) {
     //       ForEach(this.dataSource, (item:NewsInfoItem,index) => {

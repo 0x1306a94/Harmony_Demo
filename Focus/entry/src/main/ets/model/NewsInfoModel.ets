@@ -11,8 +11,32 @@ export namespace NewsBuilding {
       homeNewsList:HomeNewsList
     }
   }
+
+  export interface RecommendHeaderData {
+    code:string
+    msg:string
+    data:{
+      recomendRuselt:RecomendRuselt,
+    }
+  }
 }
 
+/*****推荐菜单栏*****/
+interface RecomendRuselt {
+  cityId: Number,
+  houseCityDirectories: HouseCityDirectories[]
+}
+
+interface HouseCityDirectories {
+  id: Number,
+  title: string,
+  imageUrl: string,
+  url: string,
+  hot: string
+}
+
+
+/*****流数据*****/
 interface HomeNewsList {
   newsListData: NewsListData,
   photoDomain: string

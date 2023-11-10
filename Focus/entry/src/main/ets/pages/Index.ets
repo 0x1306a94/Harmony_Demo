@@ -11,7 +11,7 @@ import ArrayList from '@ohos.util.ArrayList';
 @Component
 struct Index {
   private tabsController: TabsController = new TabsController();
-  @State currentIndex: number = 2;
+  @State currentIndex: number = 0;
 
   @Builder TabBuilder(title: string | Resource, targetIndex: number, imgPath: Resource, selectImgPath: Resource) {
     Column() {
@@ -33,8 +33,7 @@ struct Index {
   build() {
     Tabs({barPosition: BarPosition.End, controller: this.tabsController}){
       TabContent(){
-
-        ChatView()
+        HomeView()
       }
       .tabBar(this.TabBuilder($r('app.string.home'),0,$r('app.media.tab_home_normal'),$r('app.media.tab_home_select')))
 
