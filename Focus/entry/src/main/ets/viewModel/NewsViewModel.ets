@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from '@ohos/axios';
 import { NewsInfoItem } from '../bean/newsInfoModel'
 import { BLog } from '../utils/BLog';
-import { NewsBuilding } from '../model/NewsInfoModel'
+import { NewsBuilding } from '../model/response/NewsInfoModel'
 export class NewsDataSource implements IDataSource {
   private list: Array<NewsInfoItem> = [];
   private listener: DataChangeListener;
@@ -44,6 +44,7 @@ export default class NewsViewModel {
     return this.newsDataSource;
   }
 
+  // 请求咨询feed流
   public async getNewsData(): Promise<NewsBuilding.NewsBuildingData> {
     const url = 'https://graphql.focus.cn/alias/query'
     let data: NewsBuilding.NewsBuildingData;
@@ -68,6 +69,8 @@ export default class NewsViewModel {
     return data;
   }
 
+
+  // 请求header头部菜单
   public async getBannerHeaderData(): Promise<NewsBuilding.RecommendHeaderData>{
 
     const url = 'https://kanfang-app.focus.cn/api/recommend/directory/list?cityId=1'

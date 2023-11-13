@@ -1,7 +1,7 @@
 import { ThreadFormatter } from '@ohos/xlog/src/main/ets/components/formatter/ThreadFormatter'
 import { MenuModel } from '../model/menuModel'
 import { NewsInfoItem } from '../bean/newsInfoModel'
-import { NewsBuilding } from '../model/NewsInfoModel'
+import { NewsBuilding } from '../model/response/NewsInfoModel'
 import { BLog } from '../utils/BLog'
 import NewsViewModel from '../viewModel/NewsViewModel'
 import {TabLayout} from '../component/horizontalTabs'

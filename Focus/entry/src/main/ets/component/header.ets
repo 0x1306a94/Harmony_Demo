@@ -10,6 +10,7 @@ export struct MenuLayout {
   private firstMenuList = getFirstMenuList()
   // 第二页九宫格数据
   private secondMenuList = getSecondMenuList()
+
   // 指示器的高度
   private indicatorHeight = 0
   // 页面滑动的百分比
@@ -27,10 +28,6 @@ export struct MenuLayout {
   private onSlidChange: (slidPercent: number) => void = (slidPercent: number) => {
     console.log('onSlidChange slidPercent = ' + slidPercent)
   }
-
-  // aboutToAppear() {
-  //   this.pageHeight = this.headerHeight
-  // }
 
   @Builder genMenuLayout(menuList: MenuData[]) {
     Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
@@ -68,8 +65,11 @@ export struct MenuLayout {
 
   build() {
     Flex({ direction: FlexDirection.Row, wrap: FlexWrap.NoWrap }) {
-      // this.genMenuLayout(this.secondMenuList)
-      this.genMenuLayoutFormNet()
+      if(this.menuArry.length == 0 || this.menuArry == null){
+        this.genMenuLayout(this.firstMenuList)
+      }else{
+        this.genMenuLayoutFormNet()
+      }
     }.height(this.pageHeight)
   }
 

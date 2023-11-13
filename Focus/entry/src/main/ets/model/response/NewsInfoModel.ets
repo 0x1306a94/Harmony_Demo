@@ -21,11 +21,6 @@ export namespace NewsBuilding {
   }
 }
 
-// /*****推荐菜单栏*****/
-// interface RecomendRuselt {
-//   cityId: Number,
-//   houseCityDirectories: HouseCityDirectories[]
-// }
 
 interface HouseCityDirectories {
   id: number,
@@ -34,7 +29,6 @@ interface HouseCityDirectories {
   url: string,
   hot: number
 }
-
 
 /*****流数据*****/
 interface HomeNewsList {
