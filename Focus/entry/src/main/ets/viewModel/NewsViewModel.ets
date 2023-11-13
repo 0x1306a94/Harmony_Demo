@@ -1,14 +1,11 @@
 import axios, { AxiosError, AxiosResponse } from '@ohos/axios';
 import { NewsInfoItem } from '../bean/newsInfoModel'
 import { BLog } from '../utils/BLog';
-import { NewsBuilding } from '../model/response/NewsInfoModel'
-export class NewsDataSource implements IDataSource {
-  private list: Array<NewsInfoItem> = [];
-  private listener: DataChangeListener;
+import { BaseResponse } from '../model/response/BasicResponse'
+import { BasicDataSource } from '../model/BasicDataSource';
 
-  constructor(list?: NewsInfoItem[]) {
-    this.list = list;
-  }
+export class NewsDataSource extends BasicDataSource {
+  private list: Array<NewsInfoItem> = [];
 
   totalCount(): number {
     return this.list.length;
@@ -18,16 +15,30 @@ export class NewsDataSource implements IDataSource {
     return this.list[index];
   }
 
-  setData(list: NewsInfoItem[]) {
-    this.list = [...list];
+  public getAllData(): NewsInfoItem[] {
+    return this.list;
   }
 
-  registerDataChangeListener(listener: DataChangeListener): void {
-    this.listener = listener;
+  public addData(index: number, data: NewsInfoItem): void {
+    this.list.splice(index, 0, data);
+    this.notifyDataAdd(index);
   }
 
-  unregisterDataChangeListener(listener: DataChangeListener): void {
+  public setData(data: NewsInfoItem[]): void {
+    this.list.splice(0);
+    this.addAllData(data);
+  }
 
+  public addAllData(data: NewsInfoItem[]): void {
+    data.forEach(item => {
+      this.list.push(item);
+    })
+    this.notifyDataReload();
+  }
+
+  public pushData(data: NewsInfoItem): void {
+    this.list.push(data);
+    this.notifyDataAdd(this.list.length - 1);
   }
 
 }
@@ -45,9 +56,9 @@ export default class NewsViewModel {
   }
 
   // 请求咨询feed流
-  public async getNewsData(): Promise<NewsBuilding.NewsBuildingData> {
+  public async getNewsData(): Promise<BaseResponse.NewsBuildingData> {
     const url = 'https://graphql.focus.cn/alias/query'
-    let data: NewsBuilding.NewsBuildingData;
+    let data: BaseResponse.NewsBuildingData;
 
     await axios.get<string, AxiosResponse<string>, null>(url, { params: {
       "name":'/home/feed/household',
@@ -71,10 +82,10 @@ export default class NewsViewModel {
 
 
   // 请求header头部菜单
-  public async getBannerHeaderData(): Promise<NewsBuilding.RecommendHeaderData>{
+  public async getBannerHeaderData(): Promise<BaseResponse.RecommendHeaderData>{
 
     const url = 'https://kanfang-app.focus.cn/api/recommend/directory/list?cityId=1'
-    let data: NewsBuilding.RecommendHeaderData;
+    let data: BaseResponse.RecommendHeaderData;
 
     await axios.get<string, AxiosResponse<string>, null>(url, { params: {
       "cityId":1,} })

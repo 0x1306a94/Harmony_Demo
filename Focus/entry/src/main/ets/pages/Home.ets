@@ -1,7 +1,7 @@
 import { ThreadFormatter } from '@ohos/xlog/src/main/ets/components/formatter/ThreadFormatter'
 import { MenuModel } from '../model/menuModel'
 import { NewsInfoItem } from '../bean/newsInfoModel'
-import { NewsBuilding } from '../model/response/NewsInfoModel'
+import { BaseResponse } from '../model/response/BasicResponse'
 import { BLog } from '../utils/BLog'
 import NewsViewModel from '../viewModel/NewsViewModel'
 import {TabLayout} from '../component/horizontalTabs'
@@ -13,11 +13,11 @@ import { TableView } from '../component/tabView'
 @Component
 export struct HomeView {
 
-  @Provide('buildListDataS') buildListDataS: { [key: string]: NewsBuilding.NewsBuildingData } = {};
+  @Provide('buildListDataS') buildListDataS: { [key: string]: BaseResponse.NewsBuildingData } = {};
   @Provide dataSource: Array<NewsInfoItem> =[]
 
   // 顶部菜单栏
-  @Provide('recommendMenuDatas') recommendMenuDatas: { [key: string]: NewsBuilding.RecommendHeaderData } = {};
+  @Provide('recommendMenuDatas') recommendMenuDatas: { [key: string]: BaseResponse.RecommendHeaderData } = {};
   @Provide menuArry: Array<MenuModel> =[]
 
 

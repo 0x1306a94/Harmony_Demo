@@ -1,28 +1,5 @@
-/**
- * 新房
- */
-export namespace NewsBuilding {
 
-  /**
-   * 新房列表
-   */
-  export interface NewsBuildingData {
-    data:{
-      homeNewsList:HomeNewsList
-    }
-  }
-
-  export interface RecommendHeaderData {
-    code:string
-    msg:string
-    data:{
-      houseCityDirectories: HouseCityDirectories[]
-    }
-  }
-}
-
-
-interface HouseCityDirectories {
+export interface HouseCityDirectories {
   id: number,
   title: string,
   imageUrl: string,
@@ -31,12 +8,12 @@ interface HouseCityDirectories {
 }
 
 /*****流数据*****/
-interface HomeNewsList {
+export interface HomeNewsList {
   newsListData: NewsListData,
   photoDomain: string
 }
 
-interface NewsListData {
+export interface NewsListData {
   list: BuildingInfo[],
   total: string
   hasNext: boolean,
@@ -45,7 +22,7 @@ interface NewsListData {
   currentPage: number
 }
 
-interface BuildingInfo {
+export interface BuildingInfo {
   id: number;
   uid: number;
   cityId: number;
@@ -87,7 +64,7 @@ interface BuildingInfo {
 
 }
 
-interface UserInfo {
+export interface UserInfo {
   uid: number;
   nickName: string | null;
   avatar: string;
