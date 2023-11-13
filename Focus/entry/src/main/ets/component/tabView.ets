@@ -1,5 +1,5 @@
 import display from '@ohos.display';
-import { NewsInfoItem } from '../bean/NewsInfo'
+import { NewsInfoItem } from '../bean/newsInfoModel'
 
 //TODO: 这里不需要用column包装，不然和首页无法滚动联动
 @Component

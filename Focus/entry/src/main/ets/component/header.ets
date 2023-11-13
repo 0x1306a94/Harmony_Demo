@@ -48,7 +48,7 @@ export struct MenuLayout {
 
   build() {
     Flex({ direction: FlexDirection.Row, wrap: FlexWrap.NoWrap }) {
-      this.genMenuLayout(this.firstMenuList)
+      this.genMenuLayout(this.secondMenuList)
     }.height(this.pageHeight)
     // Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center }) {
     //   Scroll(this.scroller) {

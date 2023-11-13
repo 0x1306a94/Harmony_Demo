@@ -21,18 +21,18 @@ export namespace NewsBuilding {
   }
 }
 
-/*****推荐菜单栏*****/
+// /*****推荐菜单栏*****/
 interface RecomendRuselt {
   cityId: Number,
   houseCityDirectories: HouseCityDirectories[]
 }
 
 interface HouseCityDirectories {
-  id: Number,
+  id: number,
   title: string,
   imageUrl: string,
   url: string,
-  hot: string
+  hot: number
 }
 
 

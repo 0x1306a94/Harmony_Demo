@@ -3,7 +3,7 @@ import {TabLayout} from '../component/horizontalTabs'
 import {SearchBar} from '../component/searchBar'
 import {MenuLayout} from '../component/header'
 import { TableView } from '../component/tabView'
-import { NewsInfoItem } from '../bean/NewsInfo'
+import { NewsInfoItem } from '../bean/newsInfoModel'
 
 
 @Entry

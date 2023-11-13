@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from '@ohos/axios';
-import { NewsInfoItem } from '../bean/NewsInfo'
+import { NewsInfoItem } from '../bean/newsInfoModel'
 import { BLog } from '../utils/BLog';
 import { NewsBuilding } from '../model/NewsInfoModel'
 export class NewsDataSource implements IDataSource {
