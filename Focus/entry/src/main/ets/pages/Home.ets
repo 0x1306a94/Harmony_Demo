@@ -3,11 +3,12 @@ import { MenuModel } from '../model/menuModel'
 import { NewsInfoItem } from '../bean/newsInfoModel'
 import { BaseResponse } from '../model/response/BasicResponse'
 import { BLog } from '../utils/BLog'
-import NewsViewModel from '../viewModel/NewsViewModel'
+// import NewsViewModel from '../viewModel/NewsViewModel'
 import {TabLayout} from '../component/horizontalTabs'
 import {SearchBar} from '../component/searchBar'
 import {MenuLayout} from '../component/header'
 import { TableView } from '../component/tabView'
+import { ApiManager } from '../network/ApiManager'
 
 @Entry
 @Component
@@ -41,11 +42,14 @@ export struct HomeView {
 
   async aboutToAppear(){
 
-    let viewModel = new NewsViewModel();
+    // let viewModel = new NewsViewModel();
+
+
     // 咨询feed流
-    this.buildListDataS['build'] = await viewModel.getNewsData();
+    this.buildListDataS['build'] = await ApiManager.getInstance().getNewsData();
     // 顶部菜单
-    this.recommendMenuDatas['build'] = await viewModel.getBannerHeaderData();
+    this.recommendMenuDatas['build'] = await ApiManager.getInstance().getBannerHeaderData();
+
 
     for (let i = 0; i < this.buildListDataS['build'].data.homeNewsList.newsListData.list.length ; i++) {
       this.dataSource.push(new NewsInfoItem({
