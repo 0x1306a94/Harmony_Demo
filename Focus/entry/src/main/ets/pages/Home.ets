@@ -3,7 +3,6 @@ import { MenuModel } from '../model/menuModel'
 import { NewsInfoItem } from '../bean/newsInfoModel'
 import { BaseResponse } from '../model/response/BasicResponse'
 import { BLog } from '../utils/BLog'
-// import NewsViewModel from '../viewModel/NewsViewModel'
 import {TabLayout} from '../component/horizontalTabs'
 import {SearchBar} from '../component/searchBar'
 import {MenuLayout} from '../component/header'
@@ -42,8 +41,6 @@ export struct HomeView {
 
   async aboutToAppear(){
 
-    // let viewModel = new NewsViewModel();
-
 
     // 咨询feed流
     this.buildListDataS['build'] = await ApiManager.getInstance().getNewsData();
@@ -60,6 +57,7 @@ export struct HomeView {
       }))
     }
 
+    // 这个是数据处理
     for (let index = 0; index < this.recommendMenuDatas['build'].data.houseCityDirectories.length; index++) {
       if (this.recommendMenuDatas['build'].data.houseCityDirectories[index].title !== '直播') {
         this.menuArry.push(new MenuModel({
@@ -71,6 +69,10 @@ export struct HomeView {
         }))
       }
     }
+    // 针对60行的封装方法
+    // this.menuArry = await ApiManager.getInstance().getBannerHeaderDataNew();
+
+
 
     BLog.i('zm')
   }
@@ -108,9 +110,6 @@ export struct HomeView {
           Swiper(this.swiperController) {
             ForEach(this.titleArr, (item) => {
               Column() {
-                Text('Page ' + item).fontSize(25).margin(10)
-                // WaterFallLayout()
-
                 TableView()
 
                 // List({ space: 0, initialIndex: 0 }) {
