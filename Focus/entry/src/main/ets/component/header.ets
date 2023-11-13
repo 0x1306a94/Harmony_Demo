@@ -4,7 +4,8 @@ import { MenuModel } from '../model/menuModel';
 
 @Component
 export struct MenuLayout {
-  // @Consume menuArry: Array<MenuModel>;
+  @Consume menuArry: Array<MenuModel>;
+
   // 第一页九宫格数据
   private firstMenuList = getFirstMenuList()
   // 第二页九宫格数据
@@ -48,53 +49,28 @@ export struct MenuLayout {
     }.width('100%').backgroundColor('#F7F7F7')
   }
 
+  @Builder genMenuLayoutFormNet() {
+    Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
+      ForEach(this.menuArry, (item: MenuModel) => {
+        Column() {
+          Image(item.imageUrl).width(40).height(40).objectFit(ImageFit.Cover).borderRadius(20)
+          Text(item.title).height(20).fontSize(14).margin({top:10})
+        }.width('20%').backgroundColor('#F7F7F7')
+        .height((this.pageHeight - this.indicatorHeight) / 2)
+        .onClick(() => {
+          console.log('=======onClick  item.name ===' + item.title)
+        })
+        .alignItems(HorizontalAlign.Center)
+        .justifyContent(FlexAlign.Center)
+      }, item => item.id)
+    }.width('100%').backgroundColor('#F7F7F7')
+  }
+
   build() {
     Flex({ direction: FlexDirection.Row, wrap: FlexWrap.NoWrap }) {
-      this.genMenuLayout(this.secondMenuList)
+      // this.genMenuLayout(this.secondMenuList)
+      this.genMenuLayoutFormNet()
     }.height(this.pageHeight)
-    // Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center }) {
-    //   Scroll(this.scroller) {
-    //     Flex({ direction: FlexDirection.Row, wrap: FlexWrap.NoWrap }) {
-    //       this.genMenuLayout(this.firstMenuList)
-    //       this.genMenuLayout(this.secondMenuList)
-    //     }.height('100%')
-    //   }
-    //   .scrollable(ScrollDirection.Horizontal)
-    //   .height(this.headerHeight - this.indicatorHeight)
-    //   .onScroll((xOffset: number, yOffset: number) => {
-    //
-    //     // console.log('这是啥 =====xxx ' + this.scroller.currentOffset().xOffset)
-    //     // console.log('当前屏幕尺寸告诉我 =====xxx ' + display.getDefaultDisplaySync().width)
-    //     // 计算当前滑动的距离百分比
-    //     this.slidPercent = this.scroller.currentOffset().xOffset / display.getDefaultDisplaySync().width/2
-    //     // this.headerHeight = this.pageHeight
-    //     // this.headerHeight = this.pageHeight + (this.pageHeight - this.indicatorHeight) * this.slidPercent
-    //     if (this.onSlidChange instanceof Function) {
-    //       this.onSlidChange(this.slidPercent)
-    //     }
-    //   })
-    //
-    //   // 指示器
-    //   // Row() {
-    //   //   Column()
-    //   //     .width(10)
-    //   //     .height(10)
-    //   //     .backgroundColor(Color.Orange)
-    //   //     .borderRadius(5)
-    //   //     .opacity((1 - this.slidPercent) < 0.3 ? 0.3 : (1 - this.slidPercent))
-    //   //
-    //   //   Progress({ value: this.slidPercent * 100, total: 100, style: ProgressStyle.Linear })
-    //   //     .color(Color.Orange)
-    //   //     .value(this.slidPercent * 100)
-    //   //     .width(30)
-    //   //     .height(10)
-    //   //     .borderRadius(5)
-    //   //       //          .backgroundColor(Color.Grey)
-    //   //     .margin({ left: 5 })
-    //   // }.height(this.indicatorHeight)
-    // }.onTouch((event: TouchEvent) => {
-    //   this.handTouchEvent(event)
-    // }).width('100%')
   }
 
   // 处理手势，在手指抬起时处理展示页面

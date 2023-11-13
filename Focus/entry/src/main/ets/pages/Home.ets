@@ -37,6 +37,41 @@ export struct HomeView {
 
   @State tempDataSource: Array<string> = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'];
   scroller: Scroller = new Scroller()
+
+
+  async aboutToAppear(){
+
+    let viewModel = new NewsViewModel();
+    // 咨询feed流
+    this.buildListDataS['build'] = await viewModel.getNewsData();
+    // 顶部菜单
+    this.recommendMenuDatas['build'] = await viewModel.getBannerHeaderData();
+
+    for (let i = 0; i < this.buildListDataS['build'].data.homeNewsList.newsListData.list.length ; i++) {
+      this.dataSource.push(new NewsInfoItem({
+        title: this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].title,
+        content: 'string',
+        headImg:'string',
+        nickNameDisplay:this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].userInfo.nickNameDisplay
+      }))
+    }
+
+    for (let index = 0; index < this.recommendMenuDatas['build'].data.houseCityDirectories.length; index++) {
+      if (this.recommendMenuDatas['build'].data.houseCityDirectories[index].title !== '直播') {
+        this.menuArry.push(new MenuModel({
+          id: this.recommendMenuDatas['build'].data.houseCityDirectories[index].id,
+          title:this.recommendMenuDatas['build'].data.houseCityDirectories[index].title,
+          imageUrl:this.recommendMenuDatas['build'].data.houseCityDirectories[index].imageUrl,
+          url:this.recommendMenuDatas['build'].data.houseCityDirectories[index].url,
+          hot:this.recommendMenuDatas['build'].data.houseCityDirectories[index].hot,
+        }))
+      }
+    }
+
+    BLog.i('zm')
+  }
+
+
   build() {
     Stack({ alignContent: Alignment.Top }) {
 
@@ -122,35 +157,6 @@ export struct HomeView {
     }.width('100%')
   }
 
-  async aboutToAppear(){
-
-    let viewModel = new NewsViewModel();
-    // 咨询feed流
-    this.buildListDataS['build'] = await viewModel.getNewsData();
-    // 顶部菜单
-    this.recommendMenuDatas['build'] = await viewModel.getBannerHeaderData();
-
-    for (let i = 0; i < this.buildListDataS['build'].data.homeNewsList.newsListData.list.length ; i++) {
-      this.dataSource.push(new NewsInfoItem({
-        title: this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].title,
-        content: 'string',
-        headImg:'string',
-        nickNameDisplay:this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].userInfo.nickNameDisplay
-      }))
-    }
-
-    for (let index = 0; index < this.recommendMenuDatas['build'].data.houseCityDirectories.length; index++) {
-      this.menuArry.push(new MenuModel({
-        id: this.recommendMenuDatas['build'].data.houseCityDirectories[index].id,
-        title:this.recommendMenuDatas['build'].data.houseCityDirectories[index].title,
-        imageUrl:this.recommendMenuDatas['build'].data.houseCityDirectories[index].imageUrl,
-        url:this.recommendMenuDatas['build'].data.houseCityDirectories[index].url,
-        hot:this.recommendMenuDatas['build'].data.houseCityDirectories[index].hot,
-      }))
-    }
-
-    BLog.i('zm')
-  }
 
 
 }
