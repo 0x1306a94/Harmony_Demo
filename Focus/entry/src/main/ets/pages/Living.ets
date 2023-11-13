@@ -1,7 +1,7 @@
 @Entry
 @Component
 export struct LivingView {
-  @State message: string = 'Hello MyView'
+  @State message: string = 'LivingView'
 
   build() {
 

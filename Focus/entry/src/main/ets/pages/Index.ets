@@ -12,7 +12,6 @@ import ArrayList from '@ohos.util.ArrayList';
 struct Index {
   private tabsController: TabsController = new TabsController();
   @State currentIndex: number = 0;
-
   @Builder TabBuilder(title: string | Resource, targetIndex: number, imgPath: Resource, selectImgPath: Resource) {
     Column() {
       Image(this.currentIndex === targetIndex ? selectImgPath : imgPath)

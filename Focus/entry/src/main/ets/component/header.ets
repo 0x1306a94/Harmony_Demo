@@ -1,8 +1,10 @@
 import {getFirstMenuList, getSecondMenuList, MenuData} from '../model/menuListDataModel'
 import display from '@ohos.display';
+import { MenuModel } from '../model/menuModel';
 
 @Component
 export struct MenuLayout {
+  // @Consume menuArry: Array<MenuModel>;
   // 第一页九宫格数据
   private firstMenuList = getFirstMenuList()
   // 第二页九宫格数据
