@@ -37,13 +37,13 @@ export struct HomeView {
       }))
     }
 
-    for (let index = 0; index < this.recommendMenuDatas['build'].data.recomendRuselt.houseCityDirectories.length; index++) {
+    for (let index = 0; index < this.recommendMenuDatas['build'].data.houseCityDirectories.length; index++) {
       this.menuArry.push(new MenuModel({
-        id: this.recommendMenuDatas['build'].data.recomendRuselt.houseCityDirectories[index].id,
-        title:this.recommendMenuDatas['build'].data.recomendRuselt.houseCityDirectories[index].title,
-        imageUrl:this.recommendMenuDatas['build'].data.recomendRuselt.houseCityDirectories[index].imageUrl,
-        url:this.recommendMenuDatas['build'].data.recomendRuselt.houseCityDirectories[index].url,
-        hot:this.recommendMenuDatas['build'].data.recomendRuselt.houseCityDirectories[index].hot,
+        id: this.recommendMenuDatas['build'].data.houseCityDirectories[index].id,
+        title:this.recommendMenuDatas['build'].data.houseCityDirectories[index].title,
+        imageUrl:this.recommendMenuDatas['build'].data.houseCityDirectories[index].imageUrl,
+        url:this.recommendMenuDatas['build'].data.houseCityDirectories[index].url,
+        hot:this.recommendMenuDatas['build'].data.houseCityDirectories[index].hot,
       }))
     }
 

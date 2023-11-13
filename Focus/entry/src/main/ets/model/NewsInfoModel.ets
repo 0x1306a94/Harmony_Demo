@@ -16,16 +16,16 @@ export namespace NewsBuilding {
     code:string
     msg:string
     data:{
-      recomendRuselt:RecomendRuselt,
+      houseCityDirectories: HouseCityDirectories[]
     }
   }
 }
 
 // /*****推荐菜单栏*****/
-interface RecomendRuselt {
-  cityId: Number,
-  houseCityDirectories: HouseCityDirectories[]
-}
+// interface RecomendRuselt {
+//   cityId: Number,
+//   houseCityDirectories: HouseCityDirectories[]
+// }
 
 interface HouseCityDirectories {
   id: number,
