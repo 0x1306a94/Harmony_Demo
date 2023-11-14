@@ -19,7 +19,7 @@ export struct HomeView {
   @Provide buildFeedArry: Array<BuildInfoModel> =[]
 
   // 家居流
-  @Provide('newsListDatas') newsListDatas: { [key: string]: BaseResponse.NewsFeedData } = {};
+  @Provide('newsListDatas') newsListDatas: { [key: string]: BaseResponse.HomeNewsFeedData } = {};
   @Provide dataSource: Array<NewsInfoItem> =[]
 
   // 顶部菜单栏

@@ -1,6 +1,6 @@
 
 import { ProjectList } from './BuildingResponse';
-import { HomeNewsList, HouseCityDirectories } from './NewsInfoResponse';
+import { HomeNewsList, HouseCityDirectories } from './HomeNewsInfoResponse';
 export namespace BaseResponse {
 /**
  * 新房列表
@@ -11,10 +11,11 @@ export namespace BaseResponse {
     }
   }
 
+
 /**
  * 家居列表
  */
-  export interface NewsFeedData {
+  export interface HomeNewsFeedData {
     data:{
       homeNewsList:HomeNewsList
     }

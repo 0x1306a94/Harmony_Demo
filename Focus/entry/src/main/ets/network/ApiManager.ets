@@ -57,9 +57,9 @@ export class ApiManager {
   /*
    * 请求咨询feed流
    */
-  public async getNewsData(): Promise<BaseResponse.NewsFeedData> {
+  public async getNewsData(): Promise<BaseResponse.HomeNewsFeedData> {
     const url = 'https://graphql.focus.cn/alias/query'
-    let data: BaseResponse.NewsFeedData;
+    let data: BaseResponse.HomeNewsFeedData;
 
     await axios.get<string, AxiosResponse<string>, null>(url, { params: {
       "name":'/home/feed/household',
