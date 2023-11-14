@@ -52,6 +52,7 @@ export struct TableView {
                   .fontColor('#FFB093')
                   .textAlign(TextAlign.Start)
                   .margin({ bottom: 5 })
+
                 Row() {
                   Image("https://t2.focus-img.cn/"+item.projPhotoPath) // 直接加载网络地址，请填写一个具体的网络图片地址
                     .alt($r('app.media.icon')) // 使用alt，在网络图片加载成功前使用占位图
@@ -60,13 +61,30 @@ export struct TableView {
                     .borderRadius(10)
                     .margin({ right: 20 })
                   Column() {
-                    Text(''+item.projName)
-                      .width('100%')
-                      .height(16)
-                      .fontSize(16)
-                      .fontWeight(600)
-                      .textAlign(TextAlign.Start)
-                      .fontColor('#1f1f1f')
+
+                    Row(){
+                      //saleStatus：0：待售  1:在售
+                      if(item.saleStatus == 0){
+                        Text('待售')
+                          .width('100%').height(18).width(32).fontSize(12)
+                          .fontColor('#FFBB41').textAlign(TextAlign.Start)
+                          .borderWidth(1).borderColor('#FFBB41').borderRadius(5)
+                          .margin({ right: 5 }).textAlign(TextAlign.Center)
+                      }else if (item.saleStatus == 1) {
+                        Text('在售')
+                          .width('100%').height(18).width(32).fontSize(12)
+                          .fontColor('#558FFF').textAlign(TextAlign.Start)
+                          .borderWidth(1).borderColor('#558FFF').borderRadius(5)
+                          .margin({ right: 5 }).textAlign(TextAlign.Center)
+                      }
+
+
+                      Text(item.projName)
+                        .height(18).fontSize(16).fontWeight(600).textAlign(TextAlign.Start)
+                        .fontColor('#1f1f1f').textOverflow({overflow:TextOverflow.Ellipsis})
+                        .width('50%')
+                    }.width('100%').alignItems(VerticalAlign.Bottom)
+
                     Row() {
                       Text(''+item.districtNames[0]+ checkString(item.circleDesc))
                         .height(12)
@@ -81,12 +99,15 @@ export struct TableView {
                         .textAlign(TextAlign.Start)
                         .fontColor('#606060')
                         .margin({ left: 5, right: 5 })
-                      Text('建面'+item.minBuildingArea+'-'+item.maxBuildingArea+"\u33a1")
-                        .height(12)
-                        .fontSize(12)
-                        .fontWeight(400)
-                        .textAlign(TextAlign.Start)
-                        .fontColor('#606060')
+                      if(item.minBuildingArea !== null && item.maxBuildingArea !== null){
+                        Text('建面'+item.minBuildingArea+'-'+item.maxBuildingArea+"\u33a1")
+                          .height(12)
+                          .fontSize(12)
+                          .fontWeight(400)
+                          .textAlign(TextAlign.Start)
+                          .fontColor('#606060')
+                      }
+
                     }.width('100%')
 
 
@@ -157,7 +178,6 @@ export struct TableView {
               }) {
                 Column() {
                   Text(item.title)
-                    .textOverflow({ overflow: TextOverflow.Clip })
                     .fontColor('#1F1F1F')
                     .fontSize(16)
                     .fontWeight(600)
