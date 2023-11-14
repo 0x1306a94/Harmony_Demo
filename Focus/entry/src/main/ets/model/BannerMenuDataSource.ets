@@ -1,4 +1,4 @@
-import { NewsInfoItem } from '../bean/newsInfoModel'
+import { HomeNewsInfoItem } from '../bean/homeNewsInfoModel'
 import { BasicDataSource } from '../model/BasicDataSource';
 import { MenuModel } from './menuModel';
 

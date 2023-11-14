@@ -53,9 +53,35 @@ export class ApiManager {
     return data;
   }
 
-
   /*
    * 请求咨询feed流
+   */
+  public async getZXNewsFeedData(): Promise<BaseResponse.NewsZXFeedData> {
+    const url = 'https://graphql.focus.cn/alias/query'
+    let data: BaseResponse.NewsZXFeedData;
+
+    await axios.get<string, AxiosResponse<string>, null>(url, { params: {
+      "name":'/home/feed/news',
+      "graphProjectId":11,
+      "param": "cityId=1&pageSize=20&pageNo=1"} })
+      .then((res: AxiosResponse) => {
+        if (res.status == 200 ) {
+          try {
+            BLog.i(`get weather info hourly, response: ${JSON.stringify(res)}`)
+            data = JSON.parse(JSON.stringify(res.data))
+          }catch (error){
+            BLog.e('首页列表数据：网络请求成功但是数据解析格式错误'+ error)
+          }
+        }
+      })
+      .catch((error: AxiosError) => {
+        console.error("error--首页列表数据" + error.message);
+      });
+    return data;
+  }
+
+  /*
+   * 请求家居feed流
    */
   public async getNewsData(): Promise<BaseResponse.HomeNewsFeedData> {
     const url = 'https://graphql.focus.cn/alias/query'

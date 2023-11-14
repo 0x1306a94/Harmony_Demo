@@ -1,6 +1,6 @@
 import display from '@ohos.display';
 import { BuildInfoModel } from '../bean/buildInfoModel';
-import { NewsInfoItem } from '../bean/newsInfoModel'
+import { HomeNewsInfoItem } from '../bean/homeNewsInfoModel'
 import { StringUtil } from '../utils/StringUtil';
 
 
@@ -31,7 +31,7 @@ export struct TableView {
   // 新房
   @Consume buildFeedArry: Array<BuildInfoModel>;
   // 家居
-  @Consume dataSource: Array<NewsInfoItem>;
+  @Consume dataSource: Array<HomeNewsInfoItem>;
 
   @Link cellType: number;
 
@@ -168,7 +168,7 @@ export struct TableView {
       }
       if (this.cellType == 1) { // 咨询
         List({ space: 0, initialIndex: 0 }) {
-          ForEach(this.dataSource, (item: NewsInfoItem, index) => {
+          ForEach(this.dataSource, (item: HomeNewsInfoItem, index) => {
             ListItem() {
               Flex({
                 direction: FlexDirection.Row,
@@ -210,7 +210,7 @@ export struct TableView {
       }
       if (this.cellType == 2) { // 家居
         List({ space: 0, initialIndex: 0 }) {
-          ForEach(this.dataSource, (item: NewsInfoItem, index) => {
+          ForEach(this.dataSource, (item: HomeNewsInfoItem, index) => {
             ListItem() {
               Flex({
                 direction: FlexDirection.Row,

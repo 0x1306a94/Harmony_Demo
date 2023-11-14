@@ -1,6 +1,7 @@
 
 import { ProjectList } from './BuildingResponse';
 import { HomeNewsList, HouseCityDirectories } from './HomeNewsInfoResponse';
+import { NewsList } from './NewsZXResponse';
 export namespace BaseResponse {
 /**
  * 新房列表
@@ -11,6 +12,14 @@ export namespace BaseResponse {
     }
   }
 
+  /**
+   * 咨询列表
+   */
+  export interface NewsZXFeedData {
+    data:{
+      newsList:NewsList
+    }
+  }
 
 /**
  * 家居列表

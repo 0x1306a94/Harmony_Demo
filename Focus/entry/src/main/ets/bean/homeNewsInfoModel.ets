@@ -1,4 +1,4 @@
-export class  NewsInfoItem {
+export class  HomeNewsInfoItem {
   id: number;
   uid: number;
   cityId: number;

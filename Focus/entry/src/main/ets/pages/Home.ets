@@ -1,6 +1,6 @@
 import { ThreadFormatter } from '@ohos/xlog/src/main/ets/components/formatter/ThreadFormatter'
 import { MenuModel } from '../model/menuModel'
-import { NewsInfoItem } from '../bean/newsInfoModel'
+import { HomeNewsInfoItem } from '../bean/homeNewsInfoModel'
 import { BaseResponse } from '../model/response/BasicResponse'
 import { BLog } from '../utils/BLog'
 import {TabLayout} from '../component/horizontalTabs'
@@ -20,7 +20,7 @@ export struct HomeView {
 
   // 家居流
   @Provide('newsListDatas') newsListDatas: { [key: string]: BaseResponse.HomeNewsFeedData } = {};
-  @Provide dataSource: Array<NewsInfoItem> =[]
+  @Provide dataSource: Array<HomeNewsInfoItem> =[]
 
   // 顶部菜单栏
   @Provide('recommendMenuDatas') recommendMenuDatas: { [key: string]: BaseResponse.RecommendHeaderData } = {};
@@ -83,7 +83,7 @@ export struct HomeView {
     }
 
     for (let i = 0; i < this.newsListDatas['build'].data.homeNewsList.newsListData.list.length ; i++) {
-      this.dataSource.push(new NewsInfoItem({
+      this.dataSource.push(new HomeNewsInfoItem({
         title: this.newsListDatas['build'].data.homeNewsList.newsListData.list[i].title,
         publishTime: this.newsListDatas['build'].data.homeNewsList.newsListData.list[i].publishTime,
         headImg:this.newsListDatas['build'].data.homeNewsList.newsListData.list[i].headImg,
