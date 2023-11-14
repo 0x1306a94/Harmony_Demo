@@ -105,7 +105,7 @@ export class StringUtil {
     }
 
     public static timeStampToAgoDate(timeStamp: number): string {
-        let timeMs = timeStamp * 1000;
+        let timeMs = timeStamp;
         var dateNow = new Date();
         var dateUp = new Date(timeMs);
         if (dateNow.getTime() - timeMs < 60 * 1000) {
@@ -115,6 +115,26 @@ export class StringUtil {
         } else if (dateNow.getTime() - timeMs < 24 * 60 * 60 * 1000) {
             return ((dateNow.getTime() - timeMs) / (60 * 60 * 1000)).toFixed() + "小时前";
         } else if (dateNow.getTime() - timeMs < 360 * 24 * 60 * 60 * 1000) {
+            return this.dateFormat(dateUp, "MM月dd日");
+        } else {
+            return this.dateFormat(dateUp, "yyyy-MM-dd");
+        }
+    }
+
+    public static timeStampToAgoHours(timeStamp: number): string {
+        let timeMs = timeStamp;
+        var dateNow = new Date();
+        var dateUp = new Date(timeMs);
+        if (dateNow.getTime() - timeMs < 60 * 1000) {
+            return "刚刚";
+        } else if (dateNow.getTime() - timeMs < 60 * 60 * 1000) {
+            return ((dateNow.getTime() - timeMs) / (60 * 1000)).toFixed() + "分钟前";
+        } else if (dateNow.getTime() - timeMs < 24 * 60 * 60 * 1000) {
+            return this.dateFormat(dateUp, "HH:mm");
+        }else if (dateNow.getTime() - timeMs < 30 * 24 * 60 * 60 * 1000) {
+            return this.dateFormat(dateUp, "MM-dd HH:mm");
+        }
+        else if (dateNow.getTime() - timeMs < 360 * 24 * 60 * 60 * 1000) {
             return this.dateFormat(dateUp, "MM月dd日");
         } else {
             return this.dateFormat(dateUp, "yyyy-MM-dd");

@@ -22,6 +22,7 @@ export struct HomeView {
 
 
   @State titleArr: string[] = ['新房', '咨询', '家居']
+
   @State currentIndex: number  = 0
   private swiperController: SwiperController = new SwiperController()
   // 头部banner高度
@@ -51,8 +52,9 @@ export struct HomeView {
     for (let i = 0; i < this.buildListDataS['build'].data.homeNewsList.newsListData.list.length ; i++) {
       this.dataSource.push(new NewsInfoItem({
         title: this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].title,
-        content: 'string',
-        headImg:'string',
+        publishTime: this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].publishTime,
+        headImg:this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].headImg,
+        // headImg:getHeaderImgeurl(this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].headImg),
         nickNameDisplay:this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].userInfo.nickNameDisplay
       }))
     }
@@ -75,6 +77,16 @@ export struct HomeView {
 
 
     BLog.i('zm')
+
+    function getHeaderImgeurl(originUrl:string): string {
+      if (originUrl.startsWith("http")) {
+        // 如果以 "http" 开头，则直接使用头像的 URL
+        return originUrl
+      } else {
+        // 如果不以 "http" 开头，则拼接默认的 URL 前缀
+        return "https://t4.focus-img.cn" + originUrl;
+      }
+    }
   }
 
 
@@ -110,7 +122,7 @@ export struct HomeView {
           Swiper(this.swiperController) {
             ForEach(this.titleArr, (item) => {
               Column() {
-                TableView()
+                TableView({cellType:$currentIndex})
 
                 // List({ space: 0, initialIndex: 0 }) {
                 //   ForEach(this.tempDataSource, (item:string,index) => {
