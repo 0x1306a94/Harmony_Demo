@@ -13,7 +13,7 @@ import { ApiManager } from '../network/ApiManager'
 @Component
 export struct HomeView {
 
-  @Provide('buildListDataS') buildListDataS: { [key: string]: BaseResponse.NewsBuildingData } = {};
+  @Provide('buildListDataS') buildListDataS: { [key: string]: BaseResponse.NewsFeedData } = {};
   @Provide dataSource: Array<NewsInfoItem> =[]
 
   // 顶部菜单栏

@@ -2,9 +2,9 @@
 import { HomeNewsList, HouseCityDirectories } from './NewsInfoModel';
 export namespace BaseResponse {
 /**
- * 新房列表
+ * 家居列表
  */
-  export interface NewsBuildingData {
+  export interface NewsFeedData {
     data:{
       homeNewsList:HomeNewsList
     }

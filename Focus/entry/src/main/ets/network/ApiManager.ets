@@ -20,10 +20,12 @@ export class ApiManager {
   }
 
 
-  // 请求咨询feed流
-  public async getNewsData(): Promise<BaseResponse.NewsBuildingData> {
+  /*
+   * 请求咨询feed流
+   */
+  public async getNewsData(): Promise<BaseResponse.NewsFeedData> {
     const url = 'https://graphql.focus.cn/alias/query'
-    let data: BaseResponse.NewsBuildingData;
+    let data: BaseResponse.NewsFeedData;
 
     await axios.get<string, AxiosResponse<string>, null>(url, { params: {
       "name":'/home/feed/household',
@@ -46,7 +48,9 @@ export class ApiManager {
     return data;
   }
 
-  // 请求header头部菜单
+  /*
+   * 请求header头部菜单
+   */
   public async getBannerHeaderData(): Promise<BaseResponse.RecommendHeaderData>{
 
     const url = 'https://kanfang-app.focus.cn/api/recommend/directory/list?cityId=1'
@@ -71,8 +75,9 @@ export class ApiManager {
     return data;
   }
 
-
-  // 请求header头部菜单
+  /*
+   *请求header头部菜单处理
+   */
   public async getBannerHeaderDataNew(): Promise<MenuModel[]>{
 
     const url = 'https://kanfang-app.focus.cn/api/recommend/directory/list?cityId=1'
@@ -107,5 +112,7 @@ export class ApiManager {
     return menuArry;
   }
 
-
+  /*
+   *  请求新房feed流
+   */
 }
