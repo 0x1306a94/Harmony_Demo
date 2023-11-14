@@ -1,6 +1,16 @@
 
-import { HomeNewsList, HouseCityDirectories } from './NewsInfoModel';
+import { ProjectList } from './BuildingResponse';
+import { HomeNewsList, HouseCityDirectories } from './NewsInfoResponse';
 export namespace BaseResponse {
+/**
+ * 新房列表
+ */
+  export interface BuildingData {
+    data:{
+      projectList:ProjectList
+    }
+  }
+
 /**
  * 家居列表
  */

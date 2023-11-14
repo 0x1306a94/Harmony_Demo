@@ -8,12 +8,18 @@ import {SearchBar} from '../component/searchBar'
 import {MenuLayout} from '../component/header'
 import { TableView } from '../component/tabView'
 import { ApiManager } from '../network/ApiManager'
+import { BuildInfoModel } from '../bean/buildInfoModel'
 
 @Entry
 @Component
 export struct HomeView {
 
-  @Provide('buildListDataS') buildListDataS: { [key: string]: BaseResponse.NewsFeedData } = {};
+  // 新房流
+  @Provide('buildListDatas') buildListDatas: { [key: string]: BaseResponse.BuildingData } = {};
+  @Provide buildFeedArry: Array<BuildInfoModel> =[]
+
+  // 家居流
+  @Provide('newsListDatas') newsListDatas: { [key: string]: BaseResponse.NewsFeedData } = {};
   @Provide dataSource: Array<NewsInfoItem> =[]
 
   // 顶部菜单栏
@@ -42,20 +48,47 @@ export struct HomeView {
 
   async aboutToAppear(){
 
-
     // 咨询feed流
-    this.buildListDataS['build'] = await ApiManager.getInstance().getNewsData();
+    this.buildListDatas['build'] = await ApiManager.getInstance().getBuildingFeedData();
+    // 咨询feed流
+    this.newsListDatas['build'] = await ApiManager.getInstance().getNewsData();
     // 顶部菜单
     this.recommendMenuDatas['build'] = await ApiManager.getInstance().getBannerHeaderData();
 
+    for (let i = 0; i < this.buildListDatas['build'].data.projectList.projectFeed.content.length ; i++) {
+      let  buildInfoModel = new BuildInfoModel({
+        pid:this.buildListDatas['build'].data.projectList.projectFeed.content[i].pid,
+        projName:this.buildListDatas['build'].data.projectList.projectFeed.content[i].projName,
+        projPhotoPath:this.buildListDatas['build'].data.projectList.projectFeed.content[i].projPhotoPath,
+        districtNames:this.buildListDatas['build'].data.projectList.projectFeed.content[i].districtNames,
+        circleDesc:this.buildListDatas['build'].data.projectList.projectFeed.content[i].circleDesc,
+        constructTypesDesc:this.buildListDatas['build'].data.projectList.projectFeed.content[i].constructTypesDesc,
+        projFeatureDesc:this.buildListDatas['build'].data.projectList.projectFeed.content[i].projFeatureDesc,
+        propertyTypeDesc:this.buildListDatas['build'].data.projectList.projectFeed.content[i].propertyTypeDesc,
+        saleStatus:this.buildListDatas['build'].data.projectList.projectFeed.content[i].saleStatus,
+        openStartTime:this.buildListDatas['build'].data.projectList.projectFeed.content[i].openStartTime,
+        priceDesc:this.buildListDatas['build'].data.projectList.projectFeed.content[i].priceDesc,
+        priceType:this.buildListDatas['build'].data.projectList.projectFeed.content[i].priceType,
+        marketingInfo:this.buildListDatas['build'].data.projectList.projectFeed.content[i].marketingInfo,
+        maxBuildingArea:this.buildListDatas['build'].data.projectList.projectFeed.content[i].maxBuildingArea,
+        minBuildingArea:this.buildListDatas['build'].data.projectList.projectFeed.content[i].minBuildingArea,
+        welfareList:this.buildListDatas['build'].data.projectList.projectFeed.content[i].welfareList,
+        vrUrl:this.buildListDatas['build'].data.projectList.projectFeed.content[i].vrUrl,
+        kanfangtuanTitle:this.buildListDatas['build'].data.projectList.projectFeed.content[i].kanfangtuanTitle,
+        liveStatus:this.buildListDatas['build'].data.projectList.projectFeed.content[i].liveStatus,
+        previewLiveTitle:this.buildListDatas['build'].data.projectList.projectFeed.content[i].previewLiveTitle,
+      });
 
-    for (let i = 0; i < this.buildListDataS['build'].data.homeNewsList.newsListData.list.length ; i++) {
+      this.buildFeedArry.push(buildInfoModel)
+    }
+
+    for (let i = 0; i < this.newsListDatas['build'].data.homeNewsList.newsListData.list.length ; i++) {
       this.dataSource.push(new NewsInfoItem({
-        title: this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].title,
-        publishTime: this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].publishTime,
-        headImg:this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].headImg,
-        // headImg:getHeaderImgeurl(this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].headImg),
-        nickNameDisplay:this.buildListDataS['build'].data.homeNewsList.newsListData.list[i].userInfo.nickNameDisplay
+        title: this.newsListDatas['build'].data.homeNewsList.newsListData.list[i].title,
+        publishTime: this.newsListDatas['build'].data.homeNewsList.newsListData.list[i].publishTime,
+        headImg:this.newsListDatas['build'].data.homeNewsList.newsListData.list[i].headImg,
+        // headImg:getHeaderImgeurl(this.newsListDatas['build'].data.homeNewsList.newsListData.list[i].headImg),
+        nickNameDisplay:this.newsListDatas['build'].data.homeNewsList.newsListData.list[i].userInfo.nickNameDisplay
       }))
     }
 

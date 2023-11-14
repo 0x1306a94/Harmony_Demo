@@ -1,4 +1,5 @@
 import display from '@ohos.display';
+import { BuildInfoModel } from '../bean/buildInfoModel';
 import { NewsInfoItem } from '../bean/newsInfoModel'
 import { StringUtil } from '../utils/StringUtil';
 
@@ -13,11 +14,25 @@ function getHeaderImgeurl(originUrl:string): string {
   }
 }
 
+function checkString(originUrls:string[]): string {
+  if (originUrls.length == 0 || originUrls == null) {
+    // 如果以 "http" 开头，则直接使用头像的 URL
+    return ''
+  } else {
+    // 如果不以 "http" 开头，则拼接默认的 URL 前缀
+    return '·'+originUrls[0];
+  }
+}
+
 
 //TODO: 这里不需要用column包装，不然和首页无法滚动联动
 @Component
 export struct TableView {
+  // 新房
+  @Consume buildFeedArry: Array<BuildInfoModel>;
+  // 家居
   @Consume dataSource: Array<NewsInfoItem>;
+
   @Link cellType: number;
 
   // @State tempDataSource: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
@@ -27,10 +42,10 @@ export struct TableView {
       if (this.cellType == 0) { // 新房
         // 新房Item
         List({ space: 0, initialIndex: 0 }) {
-          ForEach(this.dataSource, (item: string, index) => {
+          ForEach(this.buildFeedArry, (item: BuildInfoModel, index) => {
             ListItem() {
               Column() {
-                Text('合景寰汇公寓，江边海景房，大卧室送车位' + item)
+                Text('' + item.marketingInfo)
                   .width('100%')
                   .height(30)
                   .fontSize(12)
@@ -38,14 +53,14 @@ export struct TableView {
                   .textAlign(TextAlign.Start)
                   .margin({ bottom: 5 })
                 Row() {
-                  Image("https://p9.itc.cn/q_70,c_lfill,w_688,h_384,g_face/images03/20231108/427f85734b7945ecb5c24405a89eda99.jpeg") // 直接加载网络地址，请填写一个具体的网络图片地址
+                  Image("https://t2.focus-img.cn/"+item.projPhotoPath) // 直接加载网络地址，请填写一个具体的网络图片地址
                     .alt($r('app.media.icon')) // 使用alt，在网络图片加载成功前使用占位图
                     .width(120)
                     .height(90)
                     .borderRadius(10)
                     .margin({ right: 20 })
                   Column() {
-                    Text('双清苑')
+                    Text(''+item.projName)
                       .width('100%')
                       .height(16)
                       .fontSize(16)
@@ -53,7 +68,7 @@ export struct TableView {
                       .textAlign(TextAlign.Start)
                       .fontColor('#1f1f1f')
                     Row() {
-                      Text('大兴')
+                      Text(''+item.districtNames[0]+ checkString(item.circleDesc))
                         .height(12)
                         .fontSize(12)
                         .fontWeight(400)
@@ -66,7 +81,7 @@ export struct TableView {
                         .textAlign(TextAlign.Start)
                         .fontColor('#606060')
                         .margin({ left: 5, right: 5 })
-                      Text('建面 77-144m2')
+                      Text('建面'+item.minBuildingArea+'-'+item.maxBuildingArea+"\u33a1")
                         .height(12)
                         .fontSize(12)
                         .fontWeight(400)
@@ -74,56 +89,47 @@ export struct TableView {
                         .fontColor('#606060')
                     }.width('100%')
 
+
                     Row() {
-                      Text('VR寻宝')
-                        .height(18)
-                        .fontSize(12)
-                        .fontWeight(400)
-                        .borderRadius(4)
-                        .textAlign(TextAlign.Center)
-                        .fontColor('#606060')
-                        .backgroundColor('#F0F0F0')
-                        .opacity(0.5)
-                        .padding({ left: 5, right: 5 })
-                        .margin({ right: 5 })
-                      Text('VR寻宝')
-                        .height(18)
-                        .fontSize(12)
-                        .fontWeight(400)
-                        .borderRadius(4)
-                        .textAlign(TextAlign.Center)
-                        .fontColor('#606060')
-                        .backgroundColor('#F0F0F0')
-                        .opacity(0.5)
-                        .padding({ left: 5, right: 5 })
-                        .margin({ right: 5 })
-                      Text('VR寻宝')
-                        .height(18)
-                        .fontSize(12)
-                        .fontWeight(400)
-                        .borderRadius(4)
-                        .textAlign(TextAlign.Center)
-                        .fontColor('#606060')
-                        .backgroundColor('#F0F0F0')
-                        .opacity(0.5)
-                        .padding({ left: 5, right: 5 })
-                        .margin({ right: 5 })
+                      ForEach(item.propertyTypeDesc, (item: string) => {
+                        Text(''+item)
+                          .height(18)
+                          .fontSize(12)
+                          .fontWeight(400)
+                          .borderRadius(4)
+                          .textAlign(TextAlign.Center)
+                          .fontColor('#606060')
+                          .backgroundColor('#F0F0F0')
+                          .opacity(0.5)
+                          .padding({ left: 5, right: 5 })
+                          .margin({ right: 5 })
+                      }, (item: number) => item.toString())
                     }.width('100%')
 
                     Row() {
-                      Text('38000')
-                        .height(20)
-                        .fontSize(20)
-                        .fontWeight(600)
-                        .textAlign(TextAlign.Start)
-                        .fontColor('#FD4D39')
-                      Text('万/套')
-                        .height(12)
-                        .fontSize(11)
-                        .fontWeight(400)
-                        .textAlign(TextAlign.Center)
-                        .fontColor('#FD4D39')
-                        .margin({ left: 5 })
+                      if (item.priceDesc == '价格待定') {
+                        Text('价格待定')
+                          .height(20)
+                          .fontSize(20)
+                          .fontWeight(600)
+                          .textAlign(TextAlign.Start)
+                          .fontColor('#FD4D39')
+                      }else{
+                        Text(item.priceDesc.substr( 0, item.priceDesc.length-3))
+                          .height(20)
+                          .fontSize(20)
+                          .fontWeight(600)
+                          .textAlign(TextAlign.Start)
+                          .fontColor('#FD4D39')
+                        Text('元/平')
+                          .height(12)
+                          .fontSize(11)
+                          .fontWeight(400)
+                          .textAlign(TextAlign.Center)
+                          .fontColor('#FD4D39')
+                          .margin({ left: 5 })
+                      }
+
                     }.width('100%').alignItems(VerticalAlign.Bottom)
                   }
                   .height(90)
