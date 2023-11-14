@@ -13,7 +13,7 @@ export namespace BaseResponse {
   }
 
   /**
-   * 咨询列表
+   * 资讯列表
    */
   export interface NewsZXFeedData {
     data:{

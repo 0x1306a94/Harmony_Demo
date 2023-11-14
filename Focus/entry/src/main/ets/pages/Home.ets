@@ -9,6 +9,7 @@ import {MenuLayout} from '../component/header'
 import { TableView } from '../component/tabView'
 import { ApiManager } from '../network/ApiManager'
 import { BuildInfoModel } from '../bean/buildInfoModel'
+import { NewsZXModel } from '../bean/newsZXModel'
 
 @Entry
 @Component
@@ -17,6 +18,10 @@ export struct HomeView {
   // 新房流
   @Provide('buildListDatas') buildListDatas: { [key: string]: BaseResponse.BuildingData } = {};
   @Provide buildFeedArry: Array<BuildInfoModel> =[]
+
+  // 资讯流
+  @Provide('newsZxListDatas') newsZxListDatas: { [key: string]: BaseResponse.NewsZXFeedData } = {};
+  @Provide newsZxArray: Array<NewsZXModel> =[]
 
   // 家居流
   @Provide('newsListDatas') newsListDatas: { [key: string]: BaseResponse.HomeNewsFeedData } = {};
@@ -27,7 +32,7 @@ export struct HomeView {
   @Provide menuArry: Array<MenuModel> =[]
 
 
-  @State titleArr: string[] = ['新房', '咨询', '家居']
+  @State titleArr: string[] = ['新房', '资讯', '家居']
 
   @State currentIndex: number  = 0
   private swiperController: SwiperController = new SwiperController()
@@ -48,13 +53,16 @@ export struct HomeView {
 
   async aboutToAppear(){
 
-    // 咨询feed流
+    // 新房feed流
     this.buildListDatas['build'] = await ApiManager.getInstance().getBuildingFeedData();
-    // 咨询feed流
+    // 资讯feed流
+    this.newsZxListDatas['build'] = await ApiManager.getInstance().getZXNewsFeedData();
+    // 家居feed流
     this.newsListDatas['build'] = await ApiManager.getInstance().getNewsData();
     // 顶部菜单
     this.recommendMenuDatas['build'] = await ApiManager.getInstance().getBannerHeaderData();
 
+    // 新房
     for (let i = 0; i < this.buildListDatas['build'].data.projectList.projectFeed.content.length ; i++) {
       let  buildInfoModel = new BuildInfoModel({
         pid:this.buildListDatas['build'].data.projectList.projectFeed.content[i].pid,
@@ -82,6 +90,17 @@ export struct HomeView {
       this.buildFeedArry.push(buildInfoModel)
     }
 
+    // 资讯
+    for (let i = 0; i < this.newsZxListDatas['build'].data.newsList.newsListData.list.length ; i++) {
+      this.newsZxArray.push(new NewsZXModel({
+        title: this.newsZxListDatas['build'].data.newsList.newsListData.list[i].title,
+        publishTime: this.newsZxListDatas['build'].data.newsList.newsListData.list[i].publishTime,
+        headImg:this.newsZxListDatas['build'].data.newsList.newsListData.list[i].headImg,
+        nickNameDisplay:this.newsZxListDatas['build'].data.newsList.newsListData.list[i].userInfo.nickNameDisplay
+      }))
+    }
+
+    // 家居
     for (let i = 0; i < this.newsListDatas['build'].data.homeNewsList.newsListData.list.length ; i++) {
       this.dataSource.push(new HomeNewsInfoItem({
         title: this.newsListDatas['build'].data.homeNewsList.newsListData.list[i].title,

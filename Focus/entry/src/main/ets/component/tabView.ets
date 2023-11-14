@@ -1,6 +1,7 @@
 import display from '@ohos.display';
 import { BuildInfoModel } from '../bean/buildInfoModel';
 import { HomeNewsInfoItem } from '../bean/homeNewsInfoModel'
+import { NewsZXModel } from '../bean/newsZXModel';
 import { StringUtil } from '../utils/StringUtil';
 
 
@@ -24,12 +25,29 @@ function checkString(originUrls:string[]): string {
   }
 }
 
+function zxCellisShowImageHeight(item:NewsZXModel): number {
+  if (item.headImg == null) {
+    return 80
+  } else {
+    return 100
+  }
+}
+function jjCellisShowImageHeight(item:HomeNewsInfoItem): number {
+  if (item.headImg == null) {
+    return 80
+  } else {
+    return 100
+  }
+}
+
 
 //TODO: 这里不需要用column包装，不然和首页无法滚动联动
 @Component
 export struct TableView {
   // 新房
   @Consume buildFeedArry: Array<BuildInfoModel>;
+  // 资讯
+  @Consume newsZxArray: Array<NewsZXModel>;
   // 家居
   @Consume dataSource: Array<HomeNewsInfoItem>;
 
@@ -78,11 +96,10 @@ export struct TableView {
                           .margin({ right: 5 }).textAlign(TextAlign.Center)
                       }
 
-
                       Text(item.projName)
                         .height(18).fontSize(16).fontWeight(600).textAlign(TextAlign.Start)
                         .fontColor('#1f1f1f').textOverflow({overflow:TextOverflow.Ellipsis})
-                        .width('50%')
+                        .width('50%').maxLines(1)
                     }.width('100%').alignItems(VerticalAlign.Bottom)
 
                     Row() {
@@ -166,9 +183,9 @@ export struct TableView {
           }, item => item)
         }
       }
-      if (this.cellType == 1) { // 咨询
+      if (this.cellType == 1) { // 资讯
         List({ space: 0, initialIndex: 0 }) {
-          ForEach(this.dataSource, (item: HomeNewsInfoItem, index) => {
+          ForEach(this.newsZxArray, (item: NewsZXModel, index) => {
             ListItem() {
               Flex({
                 direction: FlexDirection.Row,
@@ -179,29 +196,30 @@ export struct TableView {
                 Column() {
                   Text(item.title)
                     .fontColor('#1F1F1F')
-                    .fontSize(16)
-                    .fontWeight(600)
-                    .maxLines(2)
+                    .fontSize(16).fontWeight(600)
+                    .maxLines(2).width('100%').padding({left:0,right:15})
                     .textOverflow({ overflow: TextOverflow.Ellipsis })
-
+                    // .backgroundColor(Color.Red)
                   Row() {
-                    Text('搜狐焦点考点')
+                    Text(item.userInfo.nickNameDisplay)
                       .fontColor('#BEBEBE').fontSize(12).fontWeight(400).margin({right:20})
-                    Text('5小小时前')
+                    Text(item.publishTime)
                       .fontColor('#BEBEBE').fontSize(12).fontWeight(400)
                   }.width('100%').margin({left:10})
-                }.justifyContent(FlexAlign.SpaceBetween).height('80').margin({top:0,bottom:0})
+                }.justifyContent(FlexAlign.SpaceBetween).height(zxCellisShowImageHeight(item)-20).margin({top:0,bottom:0})
 
-                Image("https://p9.itc.cn/q_70,c_lfill,w_688,h_384,g_face/images03/20231108/427f85734b7945ecb5c24405a89eda99.jpeg") // 直接加载网络地址，请填写一个具体的网络图片地址
-                  .alt($r('app.media.icon')) // 使用alt，在网络图片加载成功前使用占位图
-                  .borderRadius(10)
-                  .objectFit(ImageFit.Cover)
-                  .width(110).height(80).flexShrink(0)
+                if (item.headImg !== null) {
+                  Image("https://t4.focus-img.cn"+item.headImg) // 直接加载网络地址，请填写一个具体的网络图片地址
+                    .alt($r('app.media.icon')) // 使用alt，在网络图片加载成功前使用占位图
+                    .borderRadius(10)
+                    .objectFit(ImageFit.Cover)
+                    .width(110).height(80).flexShrink(0)
+                }
 
               }
             }
             .borderRadius(20)
-            .height(100)
+            .height(zxCellisShowImageHeight(item))
             .backgroundColor(Color.White)
             .margin({ left: 15, right: 15, top: 20 })
             .padding({ left: 10, right: 10 })
@@ -221,10 +239,8 @@ export struct TableView {
                 Column() {
                   Text(item.title)
                     .textOverflow({ overflow: TextOverflow.Clip })
-                    .fontColor('#1F1F1F')
-                    .fontSize(16)
-                    .fontWeight(600)
-                    .maxLines(2)
+                    .fontColor('#1F1F1F').fontSize(16).fontWeight(600)
+                    .maxLines(2).margin({right:10})
                     .textOverflow({ overflow: TextOverflow.Ellipsis })
 
                   Row() {
@@ -242,13 +258,13 @@ export struct TableView {
                     .alt($r('app.media.icon')) // 使用alt，在网络图片加载成功前使用占位图
                     .borderRadius(10)
                     .objectFit(ImageFit.Cover)
-                    .width(110).height(80).flexShrink(0)
+                    .width(110).height(jjCellisShowImageHeight(item)-20).flexShrink(0)
                 }
 
               }
             }
             .borderRadius(20)
-            .height(100)
+            .height(jjCellisShowImageHeight(item))
             .backgroundColor(Color.White)
             .margin({ left: 15, right: 15, top: 20 })
             .padding({ left: 10, right: 10 })

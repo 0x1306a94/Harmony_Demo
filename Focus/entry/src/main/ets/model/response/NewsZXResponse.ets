@@ -17,7 +17,7 @@ export interface newzxItem {
   url: string;
   userInfo: UserInfo;
   title: string;
-  headerImg: string | null;
+  headImg: string | null;
 }
 
 export interface UserInfo {

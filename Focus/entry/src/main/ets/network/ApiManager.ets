@@ -54,7 +54,7 @@ export class ApiManager {
   }
 
   /*
-   * 请求咨询feed流
+   * 请求资讯feed流
    */
   public async getZXNewsFeedData(): Promise<BaseResponse.NewsZXFeedData> {
     const url = 'https://graphql.focus.cn/alias/query'
