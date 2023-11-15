@@ -5,40 +5,45 @@ import { BaseResponse } from '../model/response/BasicResponse'
 import { BasicDataSource } from '../model/BasicDataSource';
 
 export class FeedHomeDataSource extends BasicDataSource {
-  private feedList: Array<HomeNewsInfoItem> = [];
+  private homeNewsArray: Array<HomeNewsInfoItem> = [];
 
   totalCount(): number {
-    return this.feedList.length;
+    return this.homeNewsArray.length;
   }
 
   getData(index: number) {
-    return this.feedList[index];
+    return this.homeNewsArray[index];
   }
 
   public getAllData(): HomeNewsInfoItem[] {
-    return this.feedList;
+    return this.homeNewsArray;
   }
 
   public addData(index: number, data: HomeNewsInfoItem): void {
-    this.feedList.splice(index, 0, data);
+    this.homeNewsArray.splice(index, 0, data);
     this.notifyDataAdd(index);
   }
 
-  public setData(data: HomeNewsInfoItem[]): void {
-    this.feedList.splice(0);
+  public setData(data: BaseResponse.HomeNewsFeedData): void {
+    this.homeNewsArray.splice(0);
     this.addAllData(data);
   }
 
-  public addAllData(data: HomeNewsInfoItem[]): void {
-    data.forEach(item => {
-      this.feedList.push(item);
-    })
+  public addAllData(data: BaseResponse.HomeNewsFeedData): void {
+    for (let i = 0; i < data.data.homeNewsList.newsListData.list.length ; i++) {
+      this.homeNewsArray.push(new HomeNewsInfoItem({
+        title: data.data.homeNewsList.newsListData.list[i].title,
+        publishTime: data.data.homeNewsList.newsListData.list[i].publishTime,
+        headImg:data.data.homeNewsList.newsListData.list[i].headImg,
+        nickNameDisplay:data.data.homeNewsList.newsListData.list[i].userInfo.nickNameDisplay
+      }))
+    }
     this.notifyDataReload();
   }
 
   public pushData(data: HomeNewsInfoItem): void {
-    this.feedList.push(data);
-    this.notifyDataAdd(this.feedList.length - 1);
+    this.homeNewsArray.push(data);
+    this.notifyDataAdd(this.homeNewsArray.length - 1);
   }
 
 }

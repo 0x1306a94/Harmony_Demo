@@ -7,15 +7,14 @@ import { ApiManager } from '../network/ApiManager';
 @Component
 export struct ChatView {
   @State message: string = 'ChatView'
-
+  @State currentIndex: number  = 0
   async aboutToAppear() {
-    await ApiManager.getInstance().getZXNewsFeedDataManager();
 
   }
 
   build() {
     Row(){
-      HomeListView()
+      HomeListView({cellType:$currentIndex})
     }.width('100%').height('100%').backgroundColor('#F7F7F7')
 
     // List({ space: 20 }) {

@@ -54,6 +54,40 @@ export class ApiManager {
   }
 
   /*
+ * 请求新房feed流
+ */
+  public async getBuildingFeedDataManager(): Promise<BaseResponse.BuildingData> {
+    const url = 'https://graphql.focus.cn/alias/query'
+    let data: BaseResponse.BuildingData;
+    let paramsMap = {}
+    paramsMap["cityId"] = 1;
+    paramsMap["page"] = 1;
+    let params:string = "params=" + encodeURIComponent(JSON.stringify(paramsMap));
+
+    //params=%7B%22cityId%22%3A1%2C%22page%22%3A1%7D
+
+    await axios.get<string, AxiosResponse<string>, null>(url, { params: {
+      "name":'/home/feed/house',
+      "graphProjectId":11,
+      "param": params} })
+      .then((res: AxiosResponse) => {
+        if (res.status == 200 ) {
+          try {
+            BLog.i(`get weather info hourly, response: ${JSON.stringify(res)}`)
+            data = JSON.parse(JSON.stringify(res.data))
+            DataSourceManager.getBuildingDataSource().setData(data)
+          }catch (error){
+            BLog.e('首页列表数据：网络请求成功但是数据解析格式错误'+ error)
+          }
+        }
+      })
+      .catch((error: AxiosError) => {
+        console.error("error--首页列表数据" + error.message);
+      });
+    return data;
+  }
+
+  /*
    * 请求资讯feed流
    */
   public async getZXNewsFeedData(): Promise<BaseResponse.NewsZXFeedData> {
@@ -113,6 +147,33 @@ export class ApiManager {
    * 请求家居feed流
    */
   public async getNewsData(): Promise<BaseResponse.HomeNewsFeedData> {
+    const url = 'https://graphql.focus.cn/alias/query'
+    let data: BaseResponse.HomeNewsFeedData;
+
+    await axios.get<string, AxiosResponse<string>, null>(url, { params: {
+      "name":'/home/feed/household',
+      "graphProjectId":11,
+      "param": "cityId=1&category=2&pageNo=1&pageSize=20"} })
+      .then((res: AxiosResponse) => {
+        if (res.status == 200 ) {
+          try {
+            BLog.i(`get weather info hourly, response: ${JSON.stringify(res)}`)
+            data = JSON.parse(JSON.stringify(res.data))
+          }catch (error){
+            BLog.e('首页列表数据：网络请求成功但是数据解析格式错误'+ error)
+          }
+        }
+      })
+      .catch((error: AxiosError) => {
+        console.error("error--首页列表数据" + error.message);
+      });
+    return data;
+  }
+
+  /*
+ * 请求家居feed流
+ */
+  public async getHomeNewsFeedManager(): Promise<BaseResponse.HomeNewsFeedData> {
     const url = 'https://graphql.focus.cn/alias/query'
     let data: BaseResponse.HomeNewsFeedData;
 
@@ -201,7 +262,5 @@ export class ApiManager {
     return menuArry;
   }
 
-  /*
-   *  请求新房feed流
-   */
+
 }
