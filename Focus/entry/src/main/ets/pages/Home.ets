@@ -32,7 +32,14 @@ export struct HomeView {
   // 搜索栏高度
   @State searchBarHeight: number = 50
   private scrollY: number = 0
-  @State tabPosY: number = vp2px(this.headerHeight + this.searchBarHeight)
+  // @State tabPosY: number = vp2px(this.headerHeight + this.searchBarHeight)
+  // 固定tab是否显示
+  @State showTabPostison:boolean = false
+
+  // 新房列表是否滑到底
+  @State buildFeedisEnd:boolean = false
+  @State zxFeedisEnd:boolean = false
+  @State newFeedisEnd:boolean = false
 
 
 
@@ -42,7 +49,7 @@ export struct HomeView {
 
   async aboutToAppear(){
 
-    await ApiManager.getInstance().getBuildingFeedDataManager(); //新房
+    await ApiManager.getInstance().getBuildingFeedDataManager(1); //新房
     await ApiManager.getInstance().getZXNewsFeedDataManager();   //资讯
     await ApiManager.getInstance().getHomeNewsFeedManager();     //家居
 
@@ -63,9 +70,8 @@ export struct HomeView {
 
       // 顶部搜索框
       SearchBar({ searchBarHeight: this.searchBarHeight })
-
+      // 固定tab栏
       Row() {
-        // tab栏
         TabLayout({
           titleArr: $titleArr,
           currentIndex: $currentIndex,
@@ -76,22 +82,61 @@ export struct HomeView {
           },
         }).width('100%').padding({left:15,right:15}).backgroundColor('#F7F7F7')
       }
-      .width('100%')
-      .height(this.tabHeight)
-      .markAnchor({ x: 0, y: 0 })
-      .position({ y: this.tabPosY + 'px', x: 0 })
-      .zIndex(10)
+      .width('100%').height(this.tabHeight)
+      .position({ y: 50, x: 0 })
+      .zIndex(10).visibility(this.showTabPostison ? Visibility.Visible : Visibility.None)
+
+      // Row() {
+      //   // tab栏
+      //   TabLayout({
+      //     titleArr: $titleArr,
+      //     currentIndex: $currentIndex,
+      //     tabSelected: (position: number, title: string) => {
+      //       this.currentIndex = position
+      //       console.log('onTabSelected position = ' + position + ', title = ' + title)
+      //       //            this.swiperController.showNext()
+      //     },
+      //   }).width('100%').padding({left:15,right:15}).backgroundColor('#F7F7F7')
+      // }
+      // .width('100%')
+      // .height(this.tabHeight)
+      // .markAnchor({ x: 0, y: 0 })
+      // .position({ y: this.tabPosY + 'px', x: 0 })
+      // .zIndex(10)
 
       Scroll(this.scroller) {
         Column() {
           // 顶部菜单栏
-          MenuLayout()
+          MenuLayout().onVisibleAreaChange([0.0, 1.0], (isVisible: boolean, currentRatio: number) => {
+            if (isVisible && currentRatio >= 0.0) {
+              console.info('menu===  刚要显示:' + currentRatio)
+              this.showTabPostison = false
+            }
+            if (!isVisible && currentRatio <= 0.0) {
+              console.info('menu===  完全消失')
+              this.showTabPostison = true
+            }
+          })
+          // 滚动tab栏
+          Row() {
+            TabLayout({
+              titleArr: $titleArr,
+              currentIndex: $currentIndex,
+              tabSelected: (position: number, title: string) => {
+                this.currentIndex = position
+              },
+            }).width('100%').padding({left:15,right:15}).backgroundColor('#F7F7F7')
+              .visibility(this.showTabPostison ? Visibility.None : Visibility.Visible)
+          }
+          .width('100%')
+          .height(this.tabHeight)
+
 
           Swiper(this.swiperController) {
             ForEach(this.titleArr, (item) => {
               Column() {
 
-                HomeListView({cellType:$currentIndex})
+                HomeListView({cellType:$currentIndex,isEdn:$buildFeedisEnd})
 
                 // TableView({cellType:$currentIndex})
 
@@ -106,7 +151,7 @@ export struct HomeView {
           .itemSpace(0)
           .index(this.currentIndex)
           .backgroundColor('#F7F7F7')
-          .margin({ top: this.tabHeight })
+          // .margin({ top: 0 })
           .flexGrow(1)
           .width('100%')
           .onChange((index: number) => {
@@ -120,10 +165,19 @@ export struct HomeView {
       .margin({ top: this.searchBarHeight })
       .backgroundColor('#F4F4F4')
       .onScroll((xOffset: number, yOffset: number) => {
-        this.scrollY += this.scroller.currentOffset().yOffset
-        this.tabPosY = vp2px(this.scroller.currentOffset().yOffset)  <  vp2px(this.headerHeight + this.searchBarHeight)?
-        vp2px(this.headerHeight + this.searchBarHeight - this.scroller.currentOffset().yOffset): vp2px(this.searchBarHeight)
+        this.buildFeedisEnd = false
+        // this.scrollY += this.scroller.currentOffset().yOffset
+        // this.tabPosY = vp2px(this.scroller.currentOffset().yOffset)  <  vp2px(this.headerHeight + this.searchBarHeight)?
+        // vp2px(this.headerHeight + this.searchBarHeight - this.scroller.currentOffset().yOffset): vp2px(this.searchBarHeight)
       })
+      .onScrollEdge((side: Edge) => {
+        console.info('To the edge')
+        if(this.currentIndex == 0){
+          this.buildFeedisEnd = true
+        }
+      })
+
+
 
 
     }.width('100%').height('100%')

@@ -56,12 +56,12 @@ export class ApiManager {
   /*
  * 请求新房feed流
  */
-  public async getBuildingFeedDataManager(): Promise<BaseResponse.BuildingData> {
+  public async getBuildingFeedDataManager(pageNumber:number): Promise<BaseResponse.BuildingData> {
     const url = 'https://graphql.focus.cn/alias/query'
     let data: BaseResponse.BuildingData;
     let paramsMap = {}
     paramsMap["cityId"] = 1;
-    paramsMap["page"] = 1;
+    paramsMap["page"] = pageNumber;
     let params:string = "params=" + encodeURIComponent(JSON.stringify(paramsMap));
 
     //params=%7B%22cityId%22%3A1%2C%22page%22%3A1%7D
@@ -75,7 +75,23 @@ export class ApiManager {
           try {
             BLog.i(`get weather info hourly, response: ${JSON.stringify(res)}`)
             data = JSON.parse(JSON.stringify(res.data))
-            DataSourceManager.getBuildingDataSource().setData(data)
+            if (pageNumber == 1) {
+              DataSourceManager.getBuildingDataSource().setData(data)
+            } else {
+              DataSourceManager.getBuildingDataSource().addAllData(data)
+              // if (data.data.projectList.projectFeed.content.length == 0) {
+              //   let buildingData: BaseResponse.BuildingData = {
+              //     data: {
+              //       projectList:null /* 这里需要一个符合 ProjectList 类型的值 */,
+              //       status: 1 // 这里给 status 赋值
+              //     }
+              //   };
+              //   data = buildingData
+              // }else{
+              //   DataSourceManager.getBuildingDataSource().addAllData(data)
+              // }
+
+            }
           }catch (error){
             BLog.e('首页列表数据：网络请求成功但是数据解析格式错误'+ error)
           }
@@ -243,13 +259,15 @@ export class ApiManager {
             data = JSON.parse(JSON.stringify(res.data))
             for (let index = 0; index < data.data.houseCityDirectories.length; index++) {
               let element = data.data.houseCityDirectories[index]
-              menuArry.push(new MenuModel({
-                id: element.id,
-                title:element.title,
-                imageUrl:element.imageUrl,
-                url:element.url,
-                hot:element.hot,
-              }))
+              if (element.title !== '直播') {
+                menuArry.push(new MenuModel({
+                  id: element.id,
+                  title:element.title,
+                  imageUrl:element.imageUrl,
+                  url:element.url,
+                  hot:element.hot,
+                }))
+              }
             }
           }catch (error){
             BLog.e('首页列表数据：网络请求成功但是数据解析格式错误'+ error)

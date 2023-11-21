@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/haoliang/.ohos/config/auto_debug_Focus_com.sohu.focus_30086000739685471.cer",
+          "storePassword": "0000001B0F4DA8F36499E6FEEF211536E187E910FBF674158C4E4DE64FF87B28BBF6632F54CBE5C9CD2B72",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BDC8D763D1169E3CEE86999F6D97A11592EE0E05B4D10DC39F6F2DE49AB95A43D872A27315A5ADC",
+          "profile": "/Users/haoliang/.ohos/config/auto_debug_Focus_com.sohu.focus_30086000739685471.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/haoliang/.ohos/config/auto_debug_Focus_com.sohu.focus_30086000739685471.p12"
+        }
+      }
+    ],
     "compileSdkVersion": 9,
     "compatibleSdkVersion": 9,
     "products": [

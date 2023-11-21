@@ -2,13 +2,14 @@
 import { ProjectList } from './BuildingResponse';
 import { HomeNewsList, HouseCityDirectories } from './HomeNewsInfoResponse';
 import { NewsList } from './NewsZXResponse';
-export namespace BaseResponse {
+export namespace BaseResponse  {
 /**
  * 新房列表
  */
   export interface BuildingData {
     data:{
-      projectList:ProjectList
+      projectList:ProjectList,
+      status:number
     }
   }
 

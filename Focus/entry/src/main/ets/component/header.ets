@@ -44,6 +44,7 @@ export struct MenuLayout {
         .justifyContent(FlexAlign.Center)
       }, item => item.id)
     }.width('100%').backgroundColor('#F7F7F7')
+
   }
 
   @Builder genMenuLayoutFormNet() {
@@ -57,10 +58,18 @@ export struct MenuLayout {
         .onClick(() => {
           console.log('=======onClick  item.name ===' + item.title)
         })
+        .onDisAppear(()=>{
+          console.info('apper = 消失了' )
+        })
         .alignItems(HorizontalAlign.Center)
         .justifyContent(FlexAlign.Center)
       }, item => item.id)
     }.width('100%').backgroundColor('#F7F7F7')
+
+    .onAppear(()=>{
+      console.info('apper = 出现了' )
+    })
+
   }
 
   build() {
