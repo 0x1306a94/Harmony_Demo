@@ -1,6 +1,6 @@
 import { NewsZXModel } from '../bean/newsZXModel';
 import { MenuLayout } from '../component/header';
-import { HomeListView } from '../component/homeListView';
+import { BuildListView } from '../component/buildListView';
 import { SearchBar } from '../component/searchBar';
 
 @Entry

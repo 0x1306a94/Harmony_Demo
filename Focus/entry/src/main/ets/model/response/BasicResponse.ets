@@ -18,7 +18,8 @@ export namespace BaseResponse  {
    */
   export interface NewsZXFeedData {
     data:{
-      newsList:NewsList
+      newsList:NewsList,
+      status:number
     }
   }
 
@@ -27,7 +28,8 @@ export namespace BaseResponse  {
  */
   export interface HomeNewsFeedData {
     data:{
-      homeNewsList:HomeNewsList
+      homeNewsList:HomeNewsList,
+      status:number
     }
   }
 

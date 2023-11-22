@@ -28,13 +28,6 @@ export class NewsZXDataSource extends BasicDataSource {
     this.addAllData(data);
   }
 
-  // public addAllData(data: NewsZXModel[]): void {
-  //   data.forEach(item => {
-  //     this.newszxArray.push(item);
-  //   })
-  //   this.notifyDataReload();
-  // }
-
   public addAllData(data: BaseResponse.NewsZXFeedData): void {
     // 资讯
     for (let i = 0; i < data.data.newsList.newsListData.list.length ; i++) {

@@ -10,7 +10,9 @@ import { TableView } from '../component/tabView'
 import { ApiManager } from '../network/ApiManager'
 import { BuildInfoModel } from '../bean/buildInfoModel'
 import { NewsZXModel } from '../bean/newsZXModel'
-import { HomeListView } from '../component/homeListView'
+import { BuildListView } from '../component/buildListView'
+import { ZxListView } from '../component/zxListView'
+import { NewsListView } from '../component/newsListView'
 
 @Entry
 @Component
@@ -50,8 +52,8 @@ export struct HomeView {
   async aboutToAppear(){
 
     await ApiManager.getInstance().getBuildingFeedDataManager(1); //新房
-    await ApiManager.getInstance().getZXNewsFeedDataManager();   //资讯
-    await ApiManager.getInstance().getHomeNewsFeedManager();     //家居
+    await ApiManager.getInstance().getZXNewsFeedDataManager(1);   //资讯
+    await ApiManager.getInstance().getHomeNewsFeedManager(1);     //家居
 
 
 
@@ -79,6 +81,7 @@ export struct HomeView {
             this.currentIndex = position
             console.log('onTabSelected position = ' + position + ', title = ' + title)
             //            this.swiperController.showNext()
+            // this.scroller.scrollEdge(Edge.Top)
           },
         }).width('100%').padding({left:15,right:15}).backgroundColor('#F7F7F7')
       }
@@ -124,6 +127,7 @@ export struct HomeView {
               currentIndex: $currentIndex,
               tabSelected: (position: number, title: string) => {
                 this.currentIndex = position
+                // this.scroller.scrollEdge(Edge.Top)
               },
             }).width('100%').padding({left:15,right:15}).backgroundColor('#F7F7F7')
               .visibility(this.showTabPostison ? Visibility.None : Visibility.Visible)
@@ -133,14 +137,22 @@ export struct HomeView {
 
 
           Swiper(this.swiperController) {
-            ForEach(this.titleArr, (item) => {
-              Column() {
-
-                HomeListView({cellType:$currentIndex,isEdn:$buildFeedisEnd})
+            ForEach(this.titleArr, (item,index) => {
+              // Column() {
+                if (this.currentIndex == 0) {
+                  BuildListView({cellType:$currentIndex,isEdn:$buildFeedisEnd})
+                }
+                if (this.currentIndex == 1) {
+                  ZxListView({zxIsEdn:$zxFeedisEnd})
+                }
+                if (this.currentIndex == 2) {
+                  NewsListView({newsIsEdn:$newFeedisEnd})
+                  // BuildListView({cellType:$currentIndex,isEdn:$buildFeedisEnd})
+                }
 
                 // TableView({cellType:$currentIndex})
 
-              }
+              // }
             })
           }
           .index(0)
@@ -151,7 +163,6 @@ export struct HomeView {
           .itemSpace(0)
           .index(this.currentIndex)
           .backgroundColor('#F7F7F7')
-          // .margin({ top: 0 })
           .flexGrow(1)
           .width('100%')
           .onChange((index: number) => {
@@ -165,7 +176,18 @@ export struct HomeView {
       .margin({ top: this.searchBarHeight })
       .backgroundColor('#F4F4F4')
       .onScroll((xOffset: number, yOffset: number) => {
-        this.buildFeedisEnd = false
+        // this.buildFeedisEnd = false
+        // this.zxFeedisEnd = false
+        // this.newFeedisEnd= false
+        if(this.currentIndex == 0){
+          this.buildFeedisEnd = false
+        }
+        if(this.currentIndex == 1){
+          this.zxFeedisEnd = false
+        }
+        if(this.currentIndex == 2){
+          this.newFeedisEnd= false
+        }
         // this.scrollY += this.scroller.currentOffset().yOffset
         // this.tabPosY = vp2px(this.scroller.currentOffset().yOffset)  <  vp2px(this.headerHeight + this.searchBarHeight)?
         // vp2px(this.headerHeight + this.searchBarHeight - this.scroller.currentOffset().yOffset): vp2px(this.searchBarHeight)
@@ -174,6 +196,12 @@ export struct HomeView {
         console.info('To the edge')
         if(this.currentIndex == 0){
           this.buildFeedisEnd = true
+        }
+        if(this.currentIndex == 1){
+          this.zxFeedisEnd = true
+        }
+        if(this.currentIndex == 2){
+          this.newFeedisEnd= true
         }
       })
 

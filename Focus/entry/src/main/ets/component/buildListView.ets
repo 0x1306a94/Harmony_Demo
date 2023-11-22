@@ -49,9 +49,7 @@ function jjCellisShowImageHeight(item:HomeNewsInfoItem): number {
 
 //TODO: 这里不需要用column包装，不然和首页无法滚动联动
 @Component
-export struct HomeListView {
-  // 资讯
-  // @Consume newsZxArray: Array<NewsZXModel>;
+export struct BuildListView {
 
   private scrollerForList: Scroller = new Scroller();
   @Link cellType: number;
@@ -310,7 +308,7 @@ export struct HomeListView {
               LoadingProgress().width(30).height(30)
               Text('正在加载...').margin({left:10})
             }
-          }.width('100%').height(50).backgroundColor(Color.Red)
+          }.width('100%').height(40)
 
         }.visibility(this.isLoadMore ? Visibility.Visible : Visibility.None)
 
