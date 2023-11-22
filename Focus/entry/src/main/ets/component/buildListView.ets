@@ -189,7 +189,7 @@ export struct BuildListView {
 
               Row() {
                 Image("https://t2.focus-img.cn/"+item.projPhotoPath) // 直接加载网络地址，请填写一个具体的网络图片地址
-                  .alt($r('app.media.icon')) // 使用alt，在网络图片加载成功前使用占位图
+                  .alt($r('app.media.placeholder')) // 使用alt，在网络图片加载成功前使用占位图
                   .width(120)
                   .height(90)
                   .borderRadius(10)
@@ -348,7 +348,7 @@ export struct BuildListView {
 
               if (item.headImg !== null) {
                 Image("https://t4.focus-img.cn"+item.headImg) // 直接加载网络地址，请填写一个具体的网络图片地址
-                  .alt($r('app.media.icon')) // 使用alt，在网络图片加载成功前使用占位图
+                  .alt($r('app.media.placeholder')) // 使用alt，在网络图片加载成功前使用占位图
                   .borderRadius(10)
                   .objectFit(ImageFit.Cover)
                   .width(110).height(80).flexShrink(0)
@@ -394,7 +394,7 @@ export struct BuildListView {
               if (item.headImg === null) {
               }else {
                 Image(getHeaderImgeurl(item.headImg)) // 直接加载网络地址，请填写一个具体的网络图片地址
-                  .alt($r('app.media.icon')) // 使用alt，在网络图片加载成功前使用占位图
+                  .alt($r('app.media.placeholder')) // 使用alt，在网络图片加载成功前使用占位图
                   .borderRadius(10)
                   .objectFit(ImageFit.Cover)
                   .width(110).height(jjCellisShowImageHeight(item)-20).flexShrink(0)

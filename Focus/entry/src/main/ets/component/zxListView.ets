@@ -182,7 +182,7 @@ export struct ZxListView {
 
             if (item.headImg !== null) {
               Image("https://t4.focus-img.cn" + item.headImg) // 直接加载网络地址，请填写一个具体的网络图片地址
-                .alt($r('app.media.icon')) // 使用alt，在网络图片加载成功前使用占位图
+                .alt($r('app.media.placeholder')) // 使用alt，在网络图片加载成功前使用占位图
                 .borderRadius(10)
                 .objectFit(ImageFit.Cover)
                 .width(110)
