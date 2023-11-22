@@ -46,4 +46,9 @@ export class NewsZXDataSource extends BasicDataSource {
     this.notifyDataAdd(this.newszxArray.length - 1);
   }
 
+  public clearData(): void {
+    this.newszxArray = [];
+    this.notifyDataReload();
+  }
+
 }

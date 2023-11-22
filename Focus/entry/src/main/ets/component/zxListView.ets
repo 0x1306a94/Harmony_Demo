@@ -23,6 +23,7 @@ function zxCellisShowImageHeight(item: NewsZXModel): number {
 //TODO: 这里不需要用column包装，不然和首页无法滚动联动
 @Component
 export struct ZxListView {
+  private scrollerForList: Scroller = new Scroller();
   @Link zxIsEdn: boolean; // 当前列表尾部索引
   @State offsetY: number = 0 // 列表y坐标偏移量
   private downY: number = 0 // 按下的y坐标
@@ -35,6 +36,14 @@ export struct ZxListView {
   @State isShowRetry: boolean = false // 点击重试 是否显示
 
   @State zxPageNumber: number = 2;
+
+  aboutToAppear(){
+    console.info('error message ' )
+    // this.scrollerForList.scrollEdge(Edge.Top)
+
+  }
+
+
   /**
    * 处理onTouch事件
    */
@@ -141,7 +150,7 @@ export struct ZxListView {
   }
 
   build() {
-    List({ space: 0 }) {
+    List({ space: 0,scroller:this.scrollerForList }) {
       LazyForEach(DataSourceManager.getNewsZXDataSource(), (item: NewsZXModel) => {
         ListItem() {
           Flex({

@@ -39,4 +39,9 @@ export class BannerMenuDataSource extends BasicDataSource {
     this.notifyDataAdd(this.menuArry.length - 1);
   }
 
+  public clearData(): void {
+    this.menuArry = [];
+    this.notifyDataReload();
+  }
+
 }

@@ -45,5 +45,8 @@ export class FeedHomeDataSource extends BasicDataSource {
     this.homeNewsArray.push(data);
     this.notifyDataAdd(this.homeNewsArray.length - 1);
   }
-
+  public clearData(): void {
+    this.homeNewsArray = [];
+    this.notifyDataReload();
+  }
 }

@@ -62,4 +62,9 @@ export class BuildingDataSource extends BasicDataSource {
     this.notifyDataAdd(this.buildingArray.length - 1);
   }
 
+  public clearData(): void {
+    this.buildingArray = [];
+    this.notifyDataReload();
+  }
+
 }
